@@ -1,231 +1,159 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Dream Donators</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        margin: 0;
-        background: #f5f7fa;
-        color: #333;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dream Donators — By GCC Media</title>
+  <style>
+    :root{
+      --bg:#f2f6ff;
+      --bg2:#dce7ff;
+      --card:#ffffff;
+      --text:#2b2d42;
+      --muted:#6b7280;
+      --accent:#2563eb;
+      --accent2:#3b82f6;
+      --radius:20px;
+      --shadow:0 10px 30px rgba(0,0,0,0.08);
+      font-family:'Poppins', sans-serif;
     }
-    nav {
-        background: #4a6cf7;
-        color: white;
-        padding: 15px;
-        text-align: center;
-        font-size: 22px;
-        font-weight: 600;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);}    
+    header{position:sticky;top:0;padding:14px 20px;background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.4);z-index:50;}
+    .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;}
+    .logo{width:50px;height:50px;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;box-shadow:0 6px 18px rgba(37,99,235,0.3);}    
+    nav a{text-decoration:none;margin-left:18px;font-weight:600;color:var(--text);}    
+    nav a:hover{color:var(--accent);}    
+    .hero{max-width:1200px;margin:40px auto;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:0 20px;}    
+    .hero-text h1{font-size:40px;margin:0 0 12px;color:var(--accent);}    
+    .hero-img{
+      width:100%;height:360px;border-radius:var(--radius);box-shadow:var(--shadow);
+      background-image:url('https://images.unsplash.com/photo-1601758123927-2f2d7dc237b4?auto=format&fit=crop&w=1200&q=80');
+      background-size:cover;background-position:center;border:1px solid #ddd;
     }
-    nav a {
-        color: white;
-        margin: 0 15px;
-        text-decoration: none;
-        font-weight: 400;
-        cursor: pointer;
-    }
-    section {
-        display: none;
-        padding: 40px;
-        animation: fade 0.6s ease;
-    }
-    @keyframes fade {
-        from { opacity: 0; transform: translateY(15px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .active {
-        display: block;
-    }
-    .card {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        max-width: 600px;
-        margin: 40px auto;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-    }
-    input, textarea {
-        width: 100%;
-        padding: 12px;
-        margin-top: 10px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-    }
-    button {
-        background: #4a6cf7;
-        color: white;
-        padding: 12px 20px;
-        border: none;
-        border-radius: 10px;
-        margin-top: 15px;
-        cursor: pointer;
-        font-size: 16px;
-        width: 100%;
-    }
-    .admin-table {
-        width: 90%;
-        margin: 20px auto;
-        border-collapse: collapse;
-    }
-    .admin-table th, .admin-table td {
-        border: 1px solid #ccc;
-        padding: 12px;
-        background: white;
-    }
-</style>
+    .btn{padding:12px 20px;background:var(--accent);border-radius:var(--radius);border:0;color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,0.28);transition:.25s;}    
+    .btn:hover{background:var(--accent2);}    
+    .card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:20px auto;}    
+    label{font-size:14px;font-weight:600;color:var(--text);}    
+    input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #d9d9d9;margin-top:6px;background:#f9fbff;}    
+    .donor-item{display:flex;gap:15px;background:#f7faff;padding:14px;border-radius:var(--radius);align-items:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);}    
+    .avatar{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#93c5fd,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;}    
+    footer{margin-top:50px;text-align:center;color:#6b7280;padding:30px;}    
+    @media(max-width:900px){.hero{grid-template-columns:1fr}.hero-img{height:260px}}
+  </style>
 </head>
-
 <body>
+<header>
+  <div class="nav">
+    <div class="logo">DD</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#donate">Donate</a>
+      <a href="#help">Student Help</a>
+      <a href="#wall">Donor Wall</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#admin">Admin</a>
+    </nav>
+  </div>
+</header>
 
-<nav>
-    Dream Donators
-    <br>
-    <a onclick="showPage('home')">Home</a>
-    <a onclick="showPage('donate')">Donate</a>
-    <a onclick="showPage('help')">Request Help</a>
-    <a onclick="showPage('admin')">Admin</a>
-</nav>
-
-<!-- HOME -->
-<section id="home" class="active">
-    <div class="card">
-        <h2>Welcome to Dream Donators</h2>
-        <p>We help students in Sri Lanka who need uniforms, books, shoes & bags.</p>
-        <p>Together we can make a difference ❤️</p>
-    </div>
+<section class="hero" id="home">
+  <div class="hero-text">
+    <h1>Be the reason a child smiles again</h1>
+    <p style="color:var(--muted);font-size:16px;line-height:1.6">
+      Your donation of school uniforms, books, shoes, or bags helps students in Sri Lanka continue their education with dignity.
+    </p>
+    <button class="btn" onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})">Donate Now</button>
+  </div>
+  <div class="hero-img"></div>
 </section>
 
-<!-- DONATE -->
-<section id="donate">
-    <div class="card">
-        <h2>Register as a Donator</h2>
-        <input id="donatorName" placeholder="Full Name">
-        <input id="donatorPhone" placeholder="Phone Number">
-        <input id="donatorItem" placeholder="What can you donate?">
-        <button onclick="saveDonator()">Submit</button>
-    </div>
+<section id="donate" style="max-width:900px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="margin:0 0 12px;color:var(--accent)">Make a Donation</h2>
+    <form id="donationForm">
+      <label>Full Name *</label>
+      <input id="name" required>
+      <label style="margin-top:14px">Email *</label>
+      <input id="email" required>
+      <label style="margin-top:14px">Phone *</label>
+      <input id="phone" required>
+      <label style="margin-top:14px">Donation Type *</label>
+      <select id="type">
+        <option>Uniforms</option><option>Books</option><option>Shoes</option><option>Bags</option><option>Sponsor</option>
+      </select>
+      <label style="margin-top:14px">Quantity / Details</label>
+      <input id="qty" placeholder="e.g. 2 uniforms size 12">
+      <button class="btn" type="submit" style="margin-top:18px">Submit Donation</button>
+      <div id="formMsg" style="margin-top:10px;color:var(--muted);font-size:14px"></div>
+    </form>
+  </div>
 </section>
 
-<!-- HELP -->
-<section id="help">
-    <div class="card">
-        <h2>Students – Request Help</h2>
-        <input id="studentName" placeholder="Student Name">
-        <input id="studentSchool" placeholder="School">
-        <textarea id="studentNeed" placeholder="Explain what you need"></textarea>
-        <button onclick="saveHelp()">Submit</button>
-    </div>
+<section id="help" style="max-width:900px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="color:var(--accent)">Request Help (Students)</h2>
+    <form id="helpForm">
+      <label>Student Name *</label>
+      <input id="sname" required>
+      <label style="margin-top:14px">School *</label>
+      <input id="school" required>
+      <label style="margin-top:14px">District *</label>
+      <input id="sdistrict" required>
+      <label style="margin-top:14px">What do you need? *</label>
+      <textarea id="need" rows="4"></textarea>
+      <button class="btn" style="margin-top:16px">Submit Request</button>
+      <div id="helpMsg" style="margin-top:10px;color:var(--muted);font-size:14px"></div>
+    </form>
+  </div>
 </section>
 
-<!-- ADMIN LOGIN -->
-<section id="admin">
-    <div class="card">
-        <h2>Admin Login</h2>
-        <input id="adminUser" placeholder="Username">
-        <input id="adminPass" type="password" placeholder="Password">
-        <button onclick="adminLogin()">Login</button>
-    </div>
+<section id="wall" style="max-width:900px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="color:var(--accent)">Recent Donors</h2>
+    <div id="publicWall" style="margin-top:14px"></div>
+  </div>
 </section>
 
-<!-- ADMIN DASHBOARD -->
-<section id="dashboard">
-    <div class="card">
-        <h2>Admin Dashboard</h2>
-        <p>Only visible to admin.</p>
-
-        <h3>Donators</h3>
-        <table class="admin-table" id="donatorsTable"></table>
-
-        <h3>Students Requesting Help</h3>
-        <table class="admin-table" id="helpTable"></table>
-    </div>
+<section id="about" style="max-width:900px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="color:var(--accent)">About Our Mission</h2>
+    <p style="color:var(--muted)">
+      Our mission is to empower students across Sri Lanka by providing essential school supplies and support, ensuring every child can learn and thrive.
+    </p>
+  </div>
 </section>
 
-<!-- Firebase -->
+<section id="contact" style="max-width:900px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="color:var(--accent)">Contact Us</h2>
+    <p class="muted">Phone: +94 77 123 4567 | Email: contact@dreamdonators.lk</p>
+  </div>
+</section>
+
+<section id="admin" style="max-width:500px;margin:auto;padding:0 20px">
+  <div class="card">
+    <h2 style="color:var(--accent)">Admin Login</h2>
+    <label>Username</label>
+    <input id="adminUser">
+    <label style="margin-top:14px">Password</label>
+    <input id="adminPass" type="password">
+    <button class="btn" style="margin-top:16px" onclick="adminLogin()">Login</button>
+    <div id="adminMsg" style="margin-top:10px;color:red"></div>
+  </div>
+</section>
+
+<footer>© Dream Donators — By GCC Media</footer>
+
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } 
-        from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAVUIIwFXEsOmOS96lifn_aEccV3I35bWU",
-        authDomain: "dream-donators.firebaseapp.com",
-        projectId: "dream-donators",
-        storageBucket: "dream-donators.firebasestorage.app",
-        messagingSenderId: "943510265596",
-        appId: "1:943510265596:web:25e49411973c046bf50179",
-        measurementId: "G-KJ1WWR3TJH"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Save Donator
-    window.saveDonator = async () => {
-        await addDoc(collection(db, "donators"), {
-            name: donatorName.value,
-            phone: donatorPhone.value,
-            item: donatorItem.value
-        });
-        alert("Thank you for donating!");
-    };
-
-    // Save Student Help Request
-    window.saveHelp = async () => {
-        await addDoc(collection(db, "students"), {
-            name: studentName.value,
-            school: studentSchool.value,
-            need: studentNeed.value
-        });
-        alert("Your request has been sent.");
-    };
-
-    // Admin Login
-    window.adminLogin = () => {
-        if (adminUser.value === "Hiran" && adminPass.value === "Hiran@6757") {
-            showPage("dashboard");
-            loadData();
-        } else {
-            alert("Invalid login!");
-        }
-    };
-
-    // Load Data into Dashboard
-    async function loadData() {
-        const donatorsSnap = await getDocs(collection(db, "donators"));
-        const helpSnap = await getDocs(collection(db, "students"));
-
-        let dHTML = "<tr><th>Name</th><th>Phone</th><th>Item</th></tr>";
-        donatorsSnap.forEach(doc => {
-            let x = doc.data();
-            dHTML += `<tr><td>${x.name}</td><td>${x.phone}</td><td>${x.item}</td></tr>`;
-        });
-        donatorsTable.innerHTML = dHTML;
-
-        let hHTML = "<tr><th>Name</th><th>School</th><th>Need</th></tr>";
-        helpSnap.forEach(doc => {
-            let x = doc.data();
-            hHTML += `<tr><td>${x.name}</td><td>${x.school}</td><td>${x.need}</td></tr>`;
-        });
-        helpTable.innerHTML = hHTML;
-    }
-
-</script>
-
-<script>
-    function showPage(page) {
-        document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
-        document.getElementById(page).classList.add("active");
-    }
-</script>
-
-</body>
-</html>
+const firebaseConfig = {
+  apiKey: "AIzaSyAVUIIwFXEsOmOS96lifn_aEccV3I35bWU",
+  authDomain: "dream-donators.firebaseapp.com",
+  projectId: "dream-donators",
+  storageBucket: "dream-donators.firebasestorage.app",
+  messagingSenderId: "943510265596",
+  appId: "1:943510265596:web:25e49411973c046bf50179",
+  measurementId: "G-KJ1WWR3TJH"
