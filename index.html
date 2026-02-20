@@ -3,157 +3,219 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Dream Donators — By GCC Media</title>
-  <style>
-    :root{
-      --bg:#f2f6ff;
-      --bg2:#dce7ff;
-      --card:#ffffff;
-      --text:#2b2d42;
-      --muted:#6b7280;
-      --accent:#2563eb;
-      --accent2:#3b82f6;
-      --radius:20px;
-      --shadow:0 10px 30px rgba(0,0,0,0.08);
-      font-family:'Poppins', sans-serif;
-    }
-    body{margin:0;background:linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text);}    
-    header{position:sticky;top:0;padding:14px 20px;background:rgba(255,255,255,0.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,0.4);z-index:50;}
-    .nav{max-width:1200px;margin:auto;display:flex;justify-content:space-between;align-items:center;}
-    .logo{width:50px;height:50px;border-radius:15px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:white;box-shadow:0 6px 18px rgba(37,99,235,0.3);}    
-    nav a{text-decoration:none;margin-left:18px;font-weight:600;color:var(--text);}    
-    nav a:hover{color:var(--accent);}    
-    .hero{max-width:1200px;margin:40px auto;display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;padding:0 20px;}    
-    .hero-text h1{font-size:40px;margin:0 0 12px;color:var(--accent);}    
-    .hero-img{
-      width:100%;height:360px;border-radius:var(--radius);box-shadow:var(--shadow);
-      background-image:url('https://images.unsplash.com/photo-1601758123927-2f2d7dc237b4?auto=format&fit=crop&w=1200&q=80');
-      background-size:cover;background-position:center;border:1px solid #ddd;
-    }
-    .btn{padding:12px 20px;background:var(--accent);border-radius:var(--radius);border:0;color:white;font-weight:700;cursor:pointer;box-shadow:0 8px 20px rgba(37,99,235,0.28);transition:.25s;}    
-    .btn:hover{background:var(--accent2);}    
-    .card{background:white;border-radius:var(--radius);box-shadow:var(--shadow);padding:26px;margin:20px auto;}    
-    label{font-size:14px;font-weight:600;color:var(--text);}    
-    input,select,textarea{width:100%;padding:12px;border-radius:12px;border:1px solid #d9d9d9;margin-top:6px;background:#f9fbff;}    
-    .donor-item{display:flex;gap:15px;background:#f7faff;padding:14px;border-radius:var(--radius);align-items:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);}    
-    .avatar{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#93c5fd,#60a5fa);display:flex;align-items:center;justify-content:center;font-weight:700;color:white;}    
-    footer{margin-top:50px;text-align:center;color:#6b7280;padding:30px;}    
-    @media(max-width:900px){.hero{grid-template-columns:1fr}.hero-img{height:260px}}
-  </style>
+  <title>Gamini Central College • Centenary 3D Preview</title>
+  <meta name="description" content="A futuristic scroll-based 3D homepage preview for Gamini Central College, Nuwara Eliya." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header>
-  <div class="nav">
-    <div class="logo">DD</div>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#donate">Donate</a>
-      <a href="#help">Student Help</a>
-      <a href="#wall">Donor Wall</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="#admin">Admin</a>
+  <div class="noise"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Home">
+      <img src="assets/logo.png" alt="School crest" />
+      <div class="brand-text">
+        <div class="brand-title">Gamini Central College</div>
+        <div class="brand-sub">Nuwara Eliya • Centenary Experience</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="#journey">100 Years</a>
+      <a href="#victories">Victories</a>
+      <a href="#events">Events</a>
+      <a href="#details">Details</a>
+      <a class="pill" href="admin.html">Admin</a>
     </nav>
-  </div>
-</header>
+  </header>
 
-<section class="hero" id="home">
-  <div class="hero-text">
-    <h1>Be the reason a child smiles again</h1>
-    <p style="color:var(--muted);font-size:16px;line-height:1.6">
-      Your donation of school uniforms, books, shoes, or bags helps students in Sri Lanka continue their education with dignity.
-    </p>
-    <button class="btn" onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})">Donate Now</button>
-  </div>
-  <div class="hero-img"></div>
-</section>
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-bg" role="img" aria-label="Campus aerial view"></div>
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="badge">CENTENARY • 1926 — 2026</div>
+          <h1 id="heroTitle">Loading…</h1>
+          <p id="heroSubtitle" class="lead">Loading…</p>
+          <div class="hero-cta">
+            <a id="heroCtaPrimary" class="btn primary" href="#journey">Explore Journey</a>
+            <a id="heroCtaSecondary" class="btn ghost" href="#events">Latest Updates</a>
+          </div>
+          <div class="mini-stats" id="statsRow"></div>
+        </div>
 
-<section id="donate" style="max-width:900px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="margin:0 0 12px;color:var(--accent)">Make a Donation</h2>
-    <form id="donationForm">
-      <label>Full Name *</label>
-      <input id="name" required>
-      <label style="margin-top:14px">Email *</label>
-      <input id="email" required>
-      <label style="margin-top:14px">Phone *</label>
-      <input id="phone" required>
-      <label style="margin-top:14px">Donation Type *</label>
-      <select id="type">
-        <option>Uniforms</option><option>Books</option><option>Shoes</option><option>Bags</option><option>Sponsor</option>
-      </select>
-      <label style="margin-top:14px">Quantity / Details</label>
-      <input id="qty" placeholder="e.g. 2 uniforms size 12">
-      <button class="btn" type="submit" style="margin-top:18px">Submit Donation</button>
-      <div id="formMsg" style="margin-top:10px;color:var(--muted);font-size:14px"></div>
-    </form>
-  </div>
-</section>
+        <div class="hero-3d">
+          <canvas id="scene"></canvas>
+          <div class="hint">
+            <span>Scroll</span>
+            <div class="mouse"></div>
+          </div>
+        </div>
+      </div>
 
-<section id="help" style="max-width:900px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="color:var(--accent)">Request Help (Students)</h2>
-    <form id="helpForm">
-      <label>Student Name *</label>
-      <input id="sname" required>
-      <label style="margin-top:14px">School *</label>
-      <input id="school" required>
-      <label style="margin-top:14px">District *</label>
-      <input id="sdistrict" required>
-      <label style="margin-top:14px">What do you need? *</label>
-      <textarea id="need" rows="4"></textarea>
-      <button class="btn" style="margin-top:16px">Submit Request</button>
-      <div id="helpMsg" style="margin-top:10px;color:var(--muted);font-size:14px"></div>
-    </form>
-  </div>
-</section>
+      <div class="hero-fade"></div>
+    </section>
 
-<section id="wall" style="max-width:900px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="color:var(--accent)">Recent Donors</h2>
-    <div id="publicWall" style="margin-top:14px"></div>
-  </div>
-</section>
+    <!-- 100 YEARS JOURNEY -->
+    <section id="journey" class="section section-journey">
+      <div class="container">
+        <div class="section-head">
+          <h2>100 Years of Progress</h2>
+          <p>Scroll to move through our story — the 3D crest reacts with the timeline.</p>
+        </div>
 
-<section id="about" style="max-width:900px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="color:var(--accent)">About Our Mission</h2>
-    <p style="color:var(--muted)">
-      Our mission is to empower students across Sri Lanka by providing essential school supplies and support, ensuring every child can learn and thrive.
-    </p>
-  </div>
-</section>
+        <div class="timeline">
+          <div class="timeline-line">
+            <div class="timeline-progress" id="timelineProgress"></div>
+          </div>
+          <div class="timeline-cards" id="timelineCards"></div>
+        </div>
+      </div>
+    </section>
 
-<section id="contact" style="max-width:900px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="color:var(--accent)">Contact Us</h2>
-    <p class="muted">Phone: +94 77 123 4567 | Email: contact@dreamdonators.lk</p>
-  </div>
-</section>
+    <!-- VICTORIES -->
+    <section id="victories" class="section section-victories">
+      <div class="bg-slice"></div>
+      <div class="container">
+        <div class="section-head">
+          <h2>Victories & Achievements</h2>
+          <p>A proud tradition in academics, sports, and culture.</p>
+        </div>
 
-<section id="admin" style="max-width:500px;margin:auto;padding:0 20px">
-  <div class="card">
-    <h2 style="color:var(--accent)">Admin Login</h2>
-    <label>Username</label>
-    <input id="adminUser">
-    <label style="margin-top:14px">Password</label>
-    <input id="adminPass" type="password">
-    <button class="btn" style="margin-top:16px" onclick="adminLogin()">Login</button>
-    <div id="adminMsg" style="margin-top:10px;color:red"></div>
-  </div>
-</section>
+        <div class="grid three">
+          <article class="card glow">
+            <h3>Academic Excellence</h3>
+            <p>Consistent performance in national exams, Olympiads, and competitions.</p>
+            <ul class="bullets">
+              <li>Island-wide placements</li>
+              <li>STEM achievements</li>
+              <li>Scholarships & awards</li>
+            </ul>
+          </article>
 
-<footer>© Dream Donators — By GCC Media</footer>
+          <article class="card glow">
+            <h3>Sports Champions</h3>
+            <p>From the highlands to the nation — discipline, teamwork, and strength.</p>
+            <ul class="bullets">
+              <li>Cricket, athletics, soccer</li>
+              <li>Inter-school titles</li>
+              <li>Annual sports meet legacy</li>
+            </ul>
+          </article>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+          <article class="card glow">
+            <h3>Culture & Leadership</h3>
+            <p>Clubs, cadets, scouts, and arts — building character and confidence.</p>
+            <ul class="bullets">
+              <li>Drama & music awards</li>
+              <li>Debate and public speaking</li>
+              <li>Service and community projects</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAVUIIwFXEsOmOS96lifn_aEccV3I35bWU",
-  authDomain: "dream-donators.firebaseapp.com",
-  projectId: "dream-donators",
-  storageBucket: "dream-donators.firebasestorage.app",
-  messagingSenderId: "943510265596",
-  appId: "1:943510265596:web:25e49411973c046bf50179",
-  measurementId: "G-KJ1WWR3TJH"
+    <!-- EVENTS -->
+    <section id="events" class="section section-events">
+      <div class="container">
+        <div class="section-head split">
+          <div>
+            <h2>Events</h2>
+            <p>Ongoing and upcoming events can be updated from the Admin page (demo uses your browser storage).</p>
+          </div>
+          <div class="right-actions">
+            <a class="btn ghost" href="admin.html">Open Admin</a>
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div class="panel">
+            <h3>Ongoing</h3>
+            <div class="event-list" id="ongoingList"></div>
+          </div>
+          <div class="panel">
+            <h3>Upcoming</h3>
+            <div class="event-list" id="upcomingList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section id="details" class="section section-details">
+      <div class="details-bg" role="img" aria-label="Campus view"></div>
+      <div class="container">
+        <div class="section-head">
+          <h2>School Details</h2>
+          <p>Quick access to information for students, parents, and alumni.</p>
+        </div>
+
+        <div class="grid three">
+          <article class="card">
+            <h3>About</h3>
+            <p>A century of education in the heart of the hill country — shaping generations with discipline and values.</p>
+            <a class="link" href="#journey">Read the journey →</a>
+          </article>
+          <article class="card">
+            <h3>Admissions</h3>
+            <p>Admission details, required documents, and contact points for inquiries.</p>
+            <a class="link" href="#contact">Contact admissions →</a>
+          </article>
+          <article class="card">
+            <h3>Clubs & Societies</h3>
+            <p>Sports, cadets, scouts, ICT, arts, and more. Student life beyond the classroom.</p>
+            <a class="link" href="#events">See events →</a>
+          </article>
+        </div>
+
+        <div id="contact" class="contact">
+          <div class="contact-card">
+            <h3>Contact</h3>
+            <div class="contact-grid">
+              <div>
+                <div class="label">Address</div>
+                <div id="contactAddress" class="value">—</div>
+              </div>
+              <div>
+                <div class="label">Phone</div>
+                <div id="contactPhone" class="value">—</div>
+              </div>
+              <div>
+                <div class="label">Email</div>
+                <div id="contactEmail" class="value">—</div>
+              </div>
+            </div>
+          </div>
+          <div class="map-card">
+            <h3>Location</h3>
+            <p class="muted">Replace this with Google Maps embed in the real site.</p>
+            <div class="fake-map">
+              <div class="pin"></div>
+              <div class="map-text">Nuwara Eliya • Sri Lanka</div>
+            </div>
+          </div>
+        </div>
+
+        <footer class="footer">
+          <div>© <span id="year"></span> Gamini Central College • Preview build</div>
+          <div class="footer-links">
+            <a href="#top">Back to top</a>
+            <a href="admin.html">Admin</a>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- Libraries -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.160.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

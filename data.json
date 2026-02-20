@@ -1,0 +1,98 @@
+{
+  "hero": {
+    "title": "Gamini Central College, Nuwara Eliya",
+    "subtitle": "Celebrating 100 Years of Excellence • 1926 — 2026",
+    "ctaPrimary": "Explore 100-Year Journey",
+    "ctaSecondary": "Latest Updates"
+  },
+  "ongoing": [
+    {
+      "title": "Annual Sports Meet",
+      "date": "2026-03-12",
+      "location": "Main Grounds",
+      "tag": "Sports"
+    },
+    {
+      "title": "Science & Innovation Week",
+      "date": "2026-03-18",
+      "location": "Science Block",
+      "tag": "Academics"
+    },
+    {
+      "title": "Prefects Leadership Camp",
+      "date": "2026-04-05",
+      "location": "School Hall",
+      "tag": "Leadership"
+    }
+  ],
+  "upcoming": [
+    {
+      "title": "Centenary Celebration Night",
+      "date": "2026-06-01",
+      "location": "College Auditorium",
+      "tag": "Centenary"
+    },
+    {
+      "title": "Old Boys’ Reunion",
+      "date": "2026-07-20",
+      "location": "College Grounds",
+      "tag": "Alumni"
+    },
+    {
+      "title": "Inter-School Debate Championship",
+      "date": "2026-08-14",
+      "location": "Auditorium",
+      "tag": "Debate"
+    }
+  ],
+  "timeline": [
+    {
+      "year": "1926",
+      "title": "Foundation",
+      "text": "Our journey begins with a vision for highland education."
+    },
+    {
+      "year": "1950s",
+      "title": "Academic Growth",
+      "text": "New classrooms, stronger results, and wider opportunities."
+    },
+    {
+      "year": "1970s",
+      "title": "Sports & Culture",
+      "text": "Major wins and cultural achievements across the island."
+    },
+    {
+      "year": "2000s",
+      "title": "Modernization",
+      "text": "Technology, labs, and expanded extracurricular life."
+    },
+    {
+      "year": "2026",
+      "title": "Centenary",
+      "text": "100 years of progress — ready for the next century."
+    }
+  ],
+  "stats": [
+    {
+      "label": "Years of Legacy",
+      "value": "100+"
+    },
+    {
+      "label": "Student Clubs",
+      "value": "40+"
+    },
+    {
+      "label": "Sports Titles",
+      "value": "250+"
+    },
+    {
+      "label": "Active Alumni",
+      "value": "10k+"
+    }
+  ],
+  "contact": {
+    "address": "Nuwara Eliya, Sri Lanka",
+    "phone": "+94 XX XXX XXXX",
+    "email": "info@example.com"
+  }
+}

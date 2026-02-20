@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Admin • Gamini Central College Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="School crest" />
+      <div class="brand-text">
+        <div class="brand-title">Admin Panel (Demo)</div>
+        <div class="brand-sub">Edits are saved to this browser only</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html#events">View Site</a>
+      <a class="pill" href="index.html">Home</a>
+    </nav>
+  </header>
+
+  <main style="padding-top:90px">
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Administrator Login</h2>
+          <p>This is a <b>static demo</b>. For real security, we’ll connect a backend (Supabase/Firebase/Strapi) with proper authentication.</p>
+        </div>
+
+        <div class="grid two" style="margin-top:18px">
+          <div class="panel">
+            <h3>Login (Demo)</h3>
+            <p class="muted">Password for preview: <b>gcc2026</b></p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+              <input id="pw" type="password" placeholder="Enter password" style="flex:1; min-width:220px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <button id="loginBtn" class="btn primary" style="cursor:pointer">Unlock</button>
+              <button id="resetBtn" class="btn ghost" style="cursor:pointer">Reset to default</button>
+            </div>
+            <p id="loginMsg" class="muted" style="margin-top:10px"></p>
+          </div>
+
+          <div class="panel">
+            <h3>What you can edit</h3>
+            <ul class="bullets">
+              <li>Hero title + subtitle</li>
+              <li>Ongoing + upcoming events</li>
+              <li>Contact details</li>
+            </ul>
+            <p class="muted">For a full website, we can add: gallery, news, achievements, staff, downloads, results, admissions, and multi-admin roles.</p>
+          </div>
+        </div>
+
+        <div id="editor" class="panel" style="margin-top:14px; display:none">
+          <h3>Edit Content</h3>
+
+          <div class="grid two">
+            <div class="card">
+              <h3>Hero</h3>
+              <label class="label">Title</label>
+              <input id="heroTitle" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Subtitle</label>
+              <textarea id="heroSubtitle" rows="3" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)"></textarea>
+            </div>
+
+            <div class="card">
+              <h3>Contact</h3>
+              <label class="label">Address</label>
+              <input id="cAddress" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Phone</label>
+              <input id="cPhone" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Email</label>
+              <input id="cEmail" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+            </div>
+          </div>
+
+          <div class="grid two" style="margin-top:14px">
+            <div class="card">
+              <h3>Ongoing Events</h3>
+              <div id="ongoingEditor"></div>
+              <button id="addOngoing" class="btn ghost" style="cursor:pointer; margin-top:10px">+ Add Ongoing</button>
+            </div>
+
+            <div class="card">
+              <h3>Upcoming Events</h3>
+              <div id="upcomingEditor"></div>
+              <button id="addUpcoming" class="btn ghost" style="cursor:pointer; margin-top:10px">+ Add Upcoming</button>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <button id="saveBtn" class="btn primary" style="cursor:pointer">Save</button>
+            <a class="btn ghost" href="index.html">View Site</a>
+          </div>
+          <p class="muted" style="margin-top:10px">Saved to <b>localStorage</b>. Real admin will save to a database so updates appear to everyone.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = "gcc_site_data_v1";
+    const DEFAULT_PW = "gcc2026";
+
+    async function loadDefault(){
+      const res = await fetch("data.json", { cache: "no-store" });
+      return res.json();
+    }
+
+    function createEventRow(e, onRemove){
+      const row = document.createElement("div");
+      row.style.display = "grid";
+      row.style.gridTemplateColumns = "1.2fr .7fr .9fr .55fr auto";
+      row.style.gap = "8px";
+      row.style.marginBottom = "10px";
+
+      const title = document.createElement("input");
+      title.value = e.title || "";
+      title.placeholder = "Title";
+      const date = document.createElement("input");
+      date.value = e.date || "";
+      date.placeholder = "YYYY-MM-DD";
+      const loc = document.createElement("input");
+      loc.value = e.location || "";
+      loc.placeholder = "Location";
+      const tag = document.createElement("input");
+      tag.value = e.tag || "";
+      tag.placeholder = "Tag";
+
+      [title,date,loc,tag].forEach(inp=>{
+        inp.style.padding="10px 12px";
+        inp.style.borderRadius="12px";
+        inp.style.border="1px solid rgba(255,255,255,.12)";
+        inp.style.background="rgba(0,0,0,.35)";
+        inp.style.color="var(--text)";
+        inp.style.width="100%";
+      });
+
+      const del = document.createElement("button");
+      del.textContent = "Remove";
+      del.className = "btn ghost";
+      del.style.padding="10px 12px";
+      del.style.cursor="pointer";
+      del.onclick = () => onRemove(row);
+
+      row.append(title,date,loc,tag,del);
+
+      row.getValue = () => ({ title: title.value, date: date.value, location: loc.value, tag: tag.value });
+      return row;
+    }
+
+    function mountEvents(container, list){
+      container.innerHTML = "";
+      const rows = [];
+      list.forEach(e=>{
+        const row = createEventRow(e, (r)=>{ r.remove(); rows.splice(rows.indexOf(r),1); });
+        rows.push(row);
+        container.appendChild(row);
+      });
+      return rows;
+    }
+
+    let current = null;
+    let ongoingRows = [];
+    let upcomingRows = [];
+
+    function fillEditor(data){
+      current = data;
+      document.getElementById("heroTitle").value = data.hero?.title || "";
+      document.getElementById("heroSubtitle").value = data.hero?.subtitle || "";
+
+      document.getElementById("cAddress").value = data.contact?.address || "";
+      document.getElementById("cPhone").value = data.contact?.phone || "";
+      document.getElementById("cEmail").value = data.contact?.email || "";
+
+      ongoingRows = mountEvents(document.getElementById("ongoingEditor"), data.ongoing || []);
+      upcomingRows = mountEvents(document.getElementById("upcomingEditor"), data.upcoming || []);
+    }
+
+    function unlock(){
+      document.getElementById("editor").style.display = "block";
+    }
+
+    document.getElementById("loginBtn").onclick = async () => {
+      const pw = document.getElementById("pw").value.trim();
+      const msg = document.getElementById("loginMsg");
+
+      if(pw !== DEFAULT_PW){
+        msg.textContent = "Wrong password. (Preview password: gcc2026)";
+        return;
+      }
+      msg.textContent = "Unlocked. You can edit content now.";
+
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if(stored){
+        try{ fillEditor(JSON.parse(stored)); unlock(); return; }catch(e){}
+      }
+      const def = await loadDefault();
+      fillEditor(def);
+      unlock();
+    };
+
+    document.getElementById("addOngoing").onclick = () => {
+      const row = createEventRow({title:"",date:"",location:"",tag:""}, (r)=>{ r.remove(); ongoingRows.splice(ongoingRows.indexOf(r),1); });
+      ongoingRows.push(row);
+      document.getElementById("ongoingEditor").appendChild(row);
+    };
+
+    document.getElementById("addUpcoming").onclick = () => {
+      const row = createEventRow({title:"",date:"",location:"",tag:""}, (r)=>{ r.remove(); upcomingRows.splice(upcomingRows.indexOf(r),1); });
+      upcomingRows.push(row);
+      document.getElementById("upcomingEditor").appendChild(row);
+    };
+
+    document.getElementById("saveBtn").onclick = () => {
+      if(!current) return;
+
+      current.hero = current.hero || {};
+      current.hero.title = document.getElementById("heroTitle").value;
+      current.hero.subtitle = document.getElementById("heroSubtitle").value;
+
+      current.contact = current.contact || {};
+      current.contact.address = document.getElementById("cAddress").value;
+      current.contact.phone = document.getElementById("cPhone").value;
+      current.contact.email = document.getElementById("cEmail").value;
+
+      current.ongoing = ongoingRows.map(r => r.getValue()).filter(e => e.title.trim().length);
+      current.upcoming = upcomingRows.map(r => r.getValue()).filter(e => e.title.trim().length);
+
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+      alert("Saved! Open Home page to see updates.");
+    };
+
+    document.getElementById("resetBtn").onclick = () => {
+      localStorage.removeItem(STORAGE_KEY);
+      alert("Reset done. Reload home page.");
+    };
+  </script>
+</body>
+</html>
