@@ -1,4 +1,4 @@
-// Main JS (ESM) — 3D + scroll interactions + data rendering
+// Main JS (ESM) — 3D logo (auto-rotating rigs) + scroll animations (no 3D scroll/mouse control) + data rendering
 gsap.registerPlugin(ScrollTrigger);
 
 const DATA_URL = "data.json";
@@ -71,8 +71,7 @@ function renderTimeline(items){
     onUpdate: (self) => {
       const p = clamp(self.progress, 0, 1);
       document.getElementById("timelineProgress").style.height = (p * 100).toFixed(1) + "%";
-      // drive 3D with same progress
-      setCrestProgress(p);
+      // 3D is now independent from scroll (disabled)
     }
   });
 }
@@ -111,13 +110,6 @@ document.getElementById("year").textContent = String(new Date().getFullYear());
 
 // -------------- 3D SCENE --------------
 let scene, camera, renderer, group, crestDisk, ring, glow;
-let targetRotation = 0;
-let crestProgress = 0;
-
-function setCrestProgress(p){
-  crestProgress = p;
-}
-
 function init3D(){
   const canvas = document.getElementById("scene");
 
@@ -211,16 +203,6 @@ function init3D(){
   group.rotation.y = -0.6;
   group.rotation.x = 0.18;
 
-  // mouse tilt
-  const bounds = () => canvas.getBoundingClientRect();
-  window.addEventListener("mousemove", (e) => {
-    const r = bounds();
-    const nx = (e.clientX - r.left) / r.width * 2 - 1;
-    const ny = (e.clientY - r.top) / r.height * 2 - 1;
-    targetRotation = nx * 0.5;
-    group.rotation.x = 0.16 + ny * -0.12;
-  }, { passive: true });
-
   // hero parallax
   gsap.to(".hero-bg", {
     scale: 1.12,
@@ -261,21 +243,25 @@ window.addEventListener("resize", resize);
 function animate(){
   requestAnimationFrame(animate);
 
-  // smooth rotation + scroll-driven turn
-  group.rotation.y += (targetRotation - group.rotation.y) * 0.03;
+  const t = performance.now() * 0.001; // seconds
 
-  // crest progress drives spin + slight lift
-  const turn = crestProgress * Math.PI * 2.0;
-  crestDisk.rotation.z = -turn * 0.35;
-  ring.rotation.z = turn * 0.25;
-  group.position.y = Math.sin(crestProgress * Math.PI) * 0.08;
+  // Keep logo stable (no scroll / no mouse)
+  group.rotation.x = 0.18;
+  group.rotation.y = -0.6;
 
-  // idle motion
-  ring.rotation.y += 0.004;
+  // Subtle futuristic float
+  group.position.y = Math.sin(t * 0.8) * 0.04;
+
+  // Only the ring rotates around the logo
+  ring.rotation.y += 0.01;                 // main spin
+  ring.rotation.z = Math.sin(t * 0.6) * 0.15; // gentle wobble
+
+  // idle glow motion
   glow.rotation.z -= 0.002;
 
   renderer.render(scene, camera);
 }
+
 
 // -------------- INIT --------------
 (async function(){
