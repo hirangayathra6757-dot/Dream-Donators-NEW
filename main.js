@@ -1,285 +1,219 @@
-if (window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-}
-
-const DATA_URL = "data.json";
 const STORAGE_KEY = "gcc_site_data_v1";
 
-function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
-
 async function loadData(){
-  const fromStorage = localStorage.getItem(STORAGE_KEY);
-  if (fromStorage) {
-    try { return JSON.parse(fromStorage); } catch(e) {}
+  const local = localStorage.getItem(STORAGE_KEY);
+  if(local){
+    try { return JSON.parse(local); } catch {}
   }
-  const res = await fetch(DATA_URL, { cache: "no-store" });
+  const res = await fetch("data.json", { cache: "no-store" });
   return res.json();
 }
 
 function formatDate(iso){
-  try{
-    const d = new Date(iso + "T00:00:00");
-    return d.toLocaleDateString(undefined, { year:"numeric", month:"short", day:"2-digit" });
-  }catch(e){
+  if(!iso) return "Date TBA";
+  try {
+    return new Intl.DateTimeFormat("en-LK", { year: "numeric", month: "short", day: "numeric" }).format(new Date(iso));
+  } catch {
     return iso;
   }
 }
 
+function el(tag, cls, html){
+  const node = document.createElement(tag);
+  if(cls) node.className = cls;
+  if(html !== undefined) node.innerHTML = html;
+  return node;
+}
+
 function renderStats(stats){
   const row = document.getElementById("statsRow");
-  if (!row) return;
   row.innerHTML = "";
-  for (const s of stats) {
-    const el = document.createElement("div");
-    el.className = "stat";
-    el.innerHTML = `<div class="v">${s.value}</div><div class="l">${s.label}</div>`;
-    row.appendChild(el);
-  }
+  stats.forEach((s) => {
+    const box = el("div", "stat reveal", `<div class="v">${s.value}</div><div class="l">${s.label}</div>`);
+    row.appendChild(box);
+  });
 }
 
 function renderTimeline(items){
   const wrap = document.getElementById("timelineCards");
-  if (!wrap) return;
+  const progressEl = document.getElementById("timelineProgress");
   wrap.innerHTML = "";
 
-  items.forEach((t) => {
-    const card = document.createElement("div");
-    card.className = "card timeline-card glass";
-    card.innerHTML = `
+  items.forEach((t, i) => {
+    const card = el("article", "card timeline-card glass-card reveal", `
       <div class="year">${t.year}</div>
       <div>
         <div class="title">${t.title}</div>
         <p class="text">${t.text}</p>
       </div>
-    `;
+    `);
+    card.dataset.index = String(i);
     wrap.appendChild(card);
-
-    if (window.gsap && window.ScrollTrigger) {
-      gsap.from(card, {
-        opacity: 0,
-        y: 18,
-        duration: .55,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 85%",
-        }
-      });
-    }
   });
 
-  if (window.ScrollTrigger) {
-    ScrollTrigger.create({
-      trigger: ".section-journey",
-      start: "top 70%",
-      end: "bottom 65%",
-      onUpdate: (self) => {
-        const p = clamp(self.progress, 0, 1);
-        const line = document.getElementById("timelineProgress");
-        if (line) line.style.height = (p * 100).toFixed(1) + "%";
+  const cards = [...wrap.querySelectorAll(".timeline-card")];
+  const section = document.querySelector(".section-journey");
+
+  function updateTimeline(){
+    const rect = section.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const start = vh * 0.2;
+    const end = rect.height - vh * 0.45;
+    const raw = (-rect.top + start) / Math.max(end, 1);
+    const progress = Math.max(0, Math.min(1, raw));
+    progressEl.style.height = `${(progress * 100).toFixed(1)}%`;
+
+    let activeIndex = 0;
+    cards.forEach((card, i) => {
+      const cRect = card.getBoundingClientRect();
+      const centerDistance = Math.abs((cRect.top + cRect.height / 2) - vh * 0.45);
+      if (i === 0 || centerDistance < Math.abs((cards[activeIndex].getBoundingClientRect().top + cards[activeIndex].getBoundingClientRect().height / 2) - vh * 0.45)) {
+        activeIndex = i;
       }
     });
+    cards.forEach((card, i) => card.classList.toggle("active", i === activeIndex));
   }
+
+  window.addEventListener("scroll", updateTimeline, { passive: true });
+  window.addEventListener("resize", updateTimeline);
+  updateTimeline();
 }
 
 function renderEvents(list, elId){
-  const el = document.getElementById(elId);
-  if (!el) return;
-  el.innerHTML = "";
-  list.forEach(e => {
-    const div = document.createElement("div");
-    div.className = "event";
-    div.innerHTML = `
+  const elm = document.getElementById(elId);
+  elm.innerHTML = "";
+  list.forEach((eventItem) => {
+    const item = el("div", "event reveal", `
       <div class="left">
-        <div class="t">${e.title}</div>
-        <div class="meta">${formatDate(e.date)} • ${e.location}</div>
+        <div class="t">${eventItem.title}</div>
+        <div class="meta">${formatDate(eventItem.date)} • ${eventItem.location}</div>
       </div>
-      <div class="tag">${e.tag || "Event"}</div>
-    `;
-    el.appendChild(div);
+      <div class="tag">${eventItem.tag || "Event"}</div>
+    `);
+    elm.appendChild(item);
   });
 }
 
 function renderContact(c){
-  const addressEl = document.getElementById("contactAddress");
-  const phoneEl = document.getElementById("contactPhone");
-  const emailEl = document.getElementById("contactEmail");
-
-  if (addressEl) addressEl.textContent = c.address || "Contact details will be updated soon";
-
-  if (phoneEl) {
-    phoneEl.textContent = c.phone || "Phone number will be updated soon";
-    phoneEl.href = c.phone ? `tel:${String(c.phone).replace(/\s+/g, "")}` : "#";
-  }
-
-  if (emailEl) {
-    emailEl.textContent = c.email || "Official email will be updated soon";
-    emailEl.href = c.email ? `mailto:${c.email}` : "#";
-  }
+  document.getElementById("contactAddress").textContent = c.address || "Address will be added soon";
+  document.getElementById("contactPhone").textContent = c.phone || "Phone number will be added soon";
+  document.getElementById("contactEmail").textContent = c.email || "Email will be added soon";
 }
 
 function renderHero(hero){
-  const t = document.getElementById("heroTitle");
-  const s = document.getElementById("heroSubtitle");
-  const p = document.getElementById("heroCtaPrimary");
-  const q = document.getElementById("heroCtaSecondary");
-  if (t) t.textContent = hero.title || "Gamini Central College";
-  if (s) s.textContent = hero.subtitle || "";
-  if (p) p.textContent = hero.ctaPrimary || "Explore Journey";
-  if (q) q.textContent = hero.ctaSecondary || "Latest Updates";
+  document.getElementById("heroTitle").textContent = hero.title || "Gamini Central College";
+  document.getElementById("heroSubtitle").textContent = hero.subtitle || "";
+  document.getElementById("heroCtaPrimary").textContent = hero.ctaPrimary || "Explore Journey";
+  document.getElementById("heroCtaSecondary").textContent = hero.ctaSecondary || "Latest Updates";
+}
+
+function socialLink(label, href){
+  if(!href) return null;
+  const a = el("a", "social-pill", label);
+  a.href = href;
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+  return a;
 }
 
 function renderSocial(social = {}){
-  const strip = document.getElementById("socialStrip");
-  const whatsappFloat = document.getElementById("whatsappFloat");
-  if (!strip) return;
+  const heroLinks = document.getElementById("heroSocialLinks");
+  const contactLinks = document.getElementById("contactSocialLinks");
+  const actions = document.getElementById("galleryActions");
 
-  const hasWhatsApp = Boolean(social.whatsappChannel);
-  const hasFacebook = Boolean(social.facebookPage);
-  const albums = Array.isArray(social.facebookAlbums) ? social.facebookAlbums.filter(a => a && a.title && a.url) : [];
+  [heroLinks, contactLinks, actions].forEach((node) => node.innerHTML = "");
 
-  if (!hasWhatsApp && !hasFacebook && albums.length === 0) {
-    strip.innerHTML = "";
-    if (whatsappFloat) whatsappFloat.classList.add("is-hidden");
+  const whatsapp = socialLink("WhatsApp Channel", social.whatsappChannel);
+  const facebook = socialLink("Facebook Page", social.facebookPage);
+
+  [whatsapp, facebook].forEach((link) => {
+    if(link){
+      heroLinks.appendChild(link.cloneNode(true));
+      contactLinks.appendChild(link.cloneNode(true));
+      actions.appendChild(link);
+    }
+  });
+}
+
+function renderAlbums(social = {}){
+  const grid = document.getElementById("albumGrid");
+  grid.innerHTML = "";
+  const albums = Array.isArray(social.facebookAlbums) ? social.facebookAlbums : [];
+
+  if(!albums.length){
+    grid.appendChild(el("div", "empty-state glass-card", "Facebook album preview cards will appear here after you add album links in the admin page."));
     return;
   }
 
-  let html = '<div class="social-grid">';
+  albums.forEach((album) => {
+    const card = el("article", "album-card glass-card reveal");
+    const cover = el("img", "album-cover");
+    cover.src = album.cover || "assets/campus_walk.jpg";
+    cover.alt = album.title || "Facebook album";
+    cover.loading = "lazy";
 
-  if (hasWhatsApp) {
-    html += `
-      <article class="social-card glass">
-        <div class="label">WhatsApp Channel</div>
-        <h3>School updates on WhatsApp</h3>
-        <p>Use this channel for quick notices, schedule updates, and community announcements.</p>
-        <div class="social-links">
-          <a class="social-link" href="${social.whatsappChannel}" target="_blank" rel="noopener">Open Channel</a>
-        </div>
-      </article>`;
-  }
+    const body = el("div", "album-body");
+    body.innerHTML = `
+      <h3 class="album-title">${album.title || "Album"}</h3>
+      <p class="album-desc">${album.description || "Facebook album preview"}</p>
+      <div class="album-actions"></div>
+    `;
+    const actions = body.querySelector(".album-actions");
 
-  if (hasFacebook) {
-    html += `
-      <article class="social-card glass">
-        <div class="label">Facebook Page</div>
-        <h3>Photos, posts, and event coverage</h3>
-        <p>Connect your page now and later we can switch this to a live gallery after moving to Firebase or a server.</p>
-        <div class="social-links">
-          <a class="social-link" href="${social.facebookPage}" target="_blank" rel="noopener">Open Facebook</a>
-        </div>
-      </article>`;
-  }
-
-  if (albums.length) {
-    html += `
-      <article class="social-card glass">
-        <div class="label">Facebook Albums</div>
-        <h3>Recent photo albums</h3>
-        <div class="album-list">
-          ${albums.map(a => `
-            <div class="album-item">
-              <span>${a.title}</span>
-              <a href="${a.url}" target="_blank" rel="noopener">Open Album</a>
-            </div>
-          `).join("")}
-        </div>
-      </article>`;
-  }
-
-  html += "</div>";
-  strip.innerHTML = html;
-
-  if (whatsappFloat) {
-    if (hasWhatsApp) {
-      whatsappFloat.href = social.whatsappChannel;
-      whatsappFloat.classList.remove("is-hidden");
-    } else {
-      whatsappFloat.classList.add("is-hidden");
+    if(album.link){
+      const open = socialLink("Open Album", album.link);
+      actions.appendChild(open);
     }
-  }
+    if(social.facebookPage){
+      const page = socialLink("Facebook Page", social.facebookPage);
+      actions.appendChild(page);
+    }
+
+    card.appendChild(cover);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
 }
 
-function hideLoader(){
-  const loader = document.getElementById("loader");
-  if (!loader) return;
-  loader.classList.add("is-hidden");
-  setTimeout(() => loader.remove(), 400);
-}
-
-function initMotion(){
-  if (!(window.gsap && window.ScrollTrigger)) return;
-
-  gsap.from(".topbar", {
-    opacity: 0,
-    y: -24,
-    duration: 0.7,
-    ease: "power2.out"
-  });
-
-  gsap.from(".hero-copy", {
-    opacity: 0,
-    y: 30,
-    duration: 0.8,
-    ease: "power2.out"
-  });
-
-  gsap.from(".logo-stage", {
-    opacity: 0,
-    y: 30,
-    scale: 0.96,
-    duration: 0.85,
-    delay: 0.08,
-    ease: "power2.out"
-  });
-
-  gsap.to(".hero-bg", {
-    scale: 1.1,
-    ease: "none",
-    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
-  });
-
-  gsap.to(".hero-logo", {
-    y: -10,
-    repeat: -1,
-    yoyo: true,
-    duration: 2.6,
-    ease: "sine.inOut"
-  });
-
-  gsap.utils.toArray(".card, .panel, .contact-card, .map-card, .social-card").forEach((el) => {
-    gsap.from(el, {
-      opacity: 0,
-      y: 18,
-      duration: 0.55,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: el,
-        start: "top 86%",
+function initReveal(){
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if(entry.isIntersecting){
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
       }
     });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+}
+
+function initLoader(){
+  window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if(!loader) return;
+    loader.style.opacity = "0";
+    loader.style.pointerEvents = "none";
+    setTimeout(() => loader.remove(), 360);
   });
 }
 
-document.getElementById("year").textContent = String(new Date().getFullYear());
-
-window.addEventListener("load", () => {
-  setTimeout(hideLoader, 180);
-});
+function initYear(){
+  document.getElementById("year").textContent = String(new Date().getFullYear());
+}
 
 (async function(){
-  try {
-    const data = await loadData();
-    renderHero(data.hero || {});
-    renderStats(data.stats || []);
-    renderTimeline(data.timeline || []);
-    renderEvents(data.ongoing || [], "ongoingList");
-    renderEvents(data.upcoming || [], "upcomingList");
-    renderContact(data.contact || {});
-    renderSocial(data.social || {});
-    initMotion();
-  } catch (error) {
-    console.error(error);
-  } finally {
-    hideLoader();
-  }
+  initLoader();
+  initYear();
+
+  const data = await loadData();
+  renderHero(data.hero || {});
+  renderStats(data.stats || []);
+  renderTimeline(data.timeline || []);
+  renderEvents(data.ongoing || [], "ongoingList");
+  renderEvents(data.upcoming || [], "upcomingList");
+  renderContact(data.contact || {});
+  renderSocial(data.social || {});
+  renderAlbums(data.social || {});
+  initReveal();
 })();
