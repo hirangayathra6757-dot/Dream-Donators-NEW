@@ -94,5 +94,10 @@
     "address": "Nuwara Eliya, Sri Lanka",
     "phone": "+94 XX XXX XXXX",
     "email": "info@example.com"
+  },
+  "social": {
+    "whatsappChannel": "https://whatsapp.com/channel/0029VaoJOpNBA1ey84bVF127",
+    "facebookPage": "",
+    "facebookAlbums": []
   }
 }
