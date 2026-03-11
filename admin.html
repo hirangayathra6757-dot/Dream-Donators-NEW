@@ -3,191 +3,119 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gamini Central College • Admin Dashboard</title>
-  <meta name="description" content="Professional admin dashboard preview for Gamini Central College." />
+  <title>Admin • Gamini Central College Preview</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="noise"></div>
-
-  <header class="topbar glass chrome">
+  <header class="topbar glass-bar">
     <a class="brand" href="index.html">
       <img src="assets/logo.png" alt="School crest" />
       <div class="brand-text">
-        <div class="brand-title">Admin Dashboard</div>
-        <div class="brand-sub">GitHub-ready preview • local browser save</div>
+        <div class="brand-title">Admin Panel (Demo)</div>
+        <div class="brand-sub">Edits are saved to this browser only</div>
       </div>
     </a>
-    <nav class="nav glass nav-shell">
-      <a href="index.html">View Site</a>
-      <a href="#editor">Editor</a>
+    <nav class="nav">
+      <a href="index.html#gallery">View Gallery</a>
+      <a href="index.html#events">View Site</a>
       <a class="pill" href="index.html">Home</a>
     </nav>
   </header>
 
-  <main style="padding-top:104px;padding-bottom:48px">
-    <section class="section" style="padding-top:20px">
-      <div class="admin-shell">
+  <main style="padding-top:110px">
+    <section class="section">
+      <div class="container">
         <div class="section-head">
-          <h2>Professional Admin Dashboard Preview</h2>
-          <p>This version looks cleaner and is better organized for future expansion. It still saves to <b>localStorage</b> for GitHub Pages. When you're ready, we can move the same structure to Firebase so everyone sees live updates.</p>
+          <h2>Administrator Login</h2>
+          <p>This is a <b>static demo</b>. For real security later, connect Firebase or another backend with proper authentication.</p>
         </div>
 
-        <div class="admin-stage">
-          <aside class="admin-sidebar glass admin-panel">
-            <div class="pill-note">Preview Mode • GitHub Compatible</div>
-            <div style="margin-top:16px">
-              <h3 style="margin:0 0 8px">Quick Navigation</h3>
-              <p class="note" style="margin:0">Use this layout as the base for a real multi-section school dashboard.</p>
+        <div class="grid two" style="margin-top:18px">
+          <div class="panel glass-card">
+            <h3>Login (Demo)</h3>
+            <p class="muted">Password for preview: <b>gcc2026</b></p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px">
+              <input id="pw" type="password" placeholder="Enter password" style="flex:1; min-width:220px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <button id="loginBtn" class="btn primary" style="cursor:pointer">Unlock</button>
+              <button id="resetBtn" class="btn ghost" style="cursor:pointer">Reset to default</button>
             </div>
-
-            <nav class="admin-nav" style="margin-top:18px">
-              <a href="#loginBox" class="active">Dashboard</a>
-              <a href="#heroEditor">Hero</a>
-              <a href="#contactEditor">Contact</a>
-              <a href="#eventsEditor">Events</a>
-              <a href="#socialEditor">Social Links</a>
-              <a href="#saveArea">Publish</a>
-            </nav>
-
-            <div class="admin-card" style="margin-top:18px">
-              <h3 style="margin-top:0">Next Upgrade</h3>
-              <p class="note">After this, the best move is Firebase auth + Firestore. That will let the website update live while still running on GitHub Pages.</p>
-            </div>
-          </aside>
-
-          <div class="admin-content">
-            <section id="loginBox" class="admin-panel glass section-anchor">
-              <div class="admin-stats">
-                <div class="stat-card glass">
-                  <h4>Homepage</h4>
-                  <strong>Ready</strong>
-                </div>
-                <div class="stat-card glass">
-                  <h4>Admin UI</h4>
-                  <strong>Upgraded</strong>
-                </div>
-                <div class="stat-card glass">
-                  <h4>Database</h4>
-                  <strong>Next Step</strong>
-                </div>
-              </div>
-
-              <div class="editor-grid" style="margin-top:16px">
-                <div class="editor-card glass">
-                  <h3 style="margin-top:0">Unlock Editor</h3>
-                  <p class="note">This keeps your preview simple while you run on GitHub. Later this login should be replaced with Firebase Authentication.</p>
-                  <div class="field">
-                    <label for="pw">Password</label>
-                    <input id="pw" type="password" placeholder="Enter password" />
-                  </div>
-                  <div class="editor-actions">
-                    <button id="loginBtn" class="btn primary" type="button">Unlock Dashboard</button>
-                    <button id="resetBtn" class="btn ghost" type="button">Reset to Default</button>
-                  </div>
-                  <p id="loginMsg" class="note" style="margin-top:12px">Preview password: <b>gcc2026</b></p>
-                </div>
-
-                <div class="editor-card glass">
-                  <h3 style="margin-top:0">What this version can manage</h3>
-                  <ul class="bullets">
-                    <li>Hero title and subtitle</li>
-                    <li>Contact information</li>
-                    <li>Ongoing and upcoming events</li>
-                    <li>WhatsApp channel link</li>
-                    <li>Facebook page and album links</li>
-                  </ul>
-                  <p class="note">News, gallery uploads, downloads, results, and multi-user roles can be added after moving to Firebase or your own server.</p>
-                </div>
-              </div>
-            </section>
-
-            <section id="editor" class="admin-panel glass section-anchor" style="display:none">
-              <h3 style="margin-top:0">Content Editor</h3>
-              <p class="note">Every save updates this browser preview immediately. Push the edited files to GitHub when you are ready for a public refresh.</p>
-
-              <div class="editor-grid">
-                <div id="heroEditor" class="editor-card glass section-anchor">
-                  <h3 style="margin-top:0">Hero Section</h3>
-                  <div class="field">
-                    <label for="heroTitle">Title</label>
-                    <input id="heroTitle" />
-                  </div>
-                  <div class="field">
-                    <label for="heroSubtitle">Subtitle</label>
-                    <textarea id="heroSubtitle"></textarea>
-                  </div>
-                </div>
-
-                <div id="contactEditor" class="editor-card glass section-anchor">
-                  <h3 style="margin-top:0">Contact</h3>
-                  <div class="field">
-                    <label for="cAddress">Address</label>
-                    <input id="cAddress" />
-                  </div>
-                  <div class="field">
-                    <label for="cPhone">Phone</label>
-                    <input id="cPhone" />
-                  </div>
-                  <div class="field">
-                    <label for="cEmail">Email</label>
-                    <input id="cEmail" />
-                  </div>
-                </div>
-              </div>
-
-              <div class="editor-grid" style="margin-top:16px">
-                <div id="eventsEditor" class="editor-card glass section-anchor">
-                  <h3 style="margin-top:0">Ongoing Events</h3>
-                  <div id="ongoingEditor" class="event-editor"></div>
-                  <div class="editor-actions">
-                    <button id="addOngoing" class="btn ghost" type="button">+ Add Ongoing</button>
-                  </div>
-                </div>
-
-                <div class="editor-card glass">
-                  <h3 style="margin-top:0">Upcoming Events</h3>
-                  <div id="upcomingEditor" class="event-editor"></div>
-                  <div class="editor-actions">
-                    <button id="addUpcoming" class="btn ghost" type="button">+ Add Upcoming</button>
-                  </div>
-                </div>
-              </div>
-
-              <div id="socialEditor" class="editor-card glass section-anchor" style="margin-top:16px">
-                <h3 style="margin-top:0">Social Links</h3>
-                <div class="editor-grid">
-                  <div>
-                    <div class="field">
-                      <label for="whatsappChannel">WhatsApp Channel Link</label>
-                      <input id="whatsappChannel" placeholder="https://whatsapp.com/channel/..." />
-                    </div>
-                    <div class="field">
-                      <label for="facebookPage">Facebook Page Link</label>
-                      <input id="facebookPage" placeholder="https://facebook.com/..." />
-                    </div>
-                  </div>
-
-                  <div>
-                    <div class="field">
-                      <label for="facebookAlbums">Facebook Albums</label>
-                      <textarea id="facebookAlbums" placeholder="One album per line in this format:
-Album Title | https://facebook.com/... "></textarea>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div id="saveArea" class="editor-actions section-anchor">
-                <button id="saveBtn" class="btn primary" type="button">Save Changes</button>
-                <a class="btn ghost" href="index.html">View Site</a>
-              </div>
-              <p class="note" style="margin-top:10px">This is still a static GitHub-friendly version. Social links and homepage content will work now, but real shared publishing needs Firebase or a hosted backend.</p>
-            </section>
+            <p id="loginMsg" class="muted" style="margin-top:10px"></p>
           </div>
+
+          <div class="panel glass-card">
+            <h3>What you can edit</h3>
+            <ul class="bullets">
+              <li>Hero title + subtitle</li>
+              <li>Ongoing + upcoming events</li>
+              <li>Contact details</li>
+              <li>WhatsApp channel + Facebook page</li>
+              <li>Facebook album preview cards</li>
+            </ul>
+            <p class="muted">This still saves to localStorage. Later we can swap this to Firebase so everyone sees the same updates.</p>
+          </div>
+        </div>
+
+        <div id="editor" class="panel glass-card" style="margin-top:14px; display:none">
+          <h3>Edit Content</h3>
+
+          <div class="grid two">
+            <div class="card glass-card">
+              <h3>Hero</h3>
+              <label class="label">Title</label>
+              <input id="heroTitle" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Subtitle</label>
+              <textarea id="heroSubtitle" rows="3" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)"></textarea>
+            </div>
+
+            <div class="card glass-card">
+              <h3>Contact</h3>
+              <label class="label">Address</label>
+              <input id="cAddress" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Phone</label>
+              <input id="cPhone" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Email</label>
+              <input id="cEmail" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+            </div>
+          </div>
+
+          <div class="grid two" style="margin-top:14px">
+            <div class="card glass-card">
+              <h3>Ongoing Events</h3>
+              <div id="ongoingEditor"></div>
+              <button id="addOngoing" class="btn ghost" style="cursor:pointer; margin-top:10px">+ Add Ongoing</button>
+            </div>
+
+            <div class="card glass-card">
+              <h3>Upcoming Events</h3>
+              <div id="upcomingEditor"></div>
+              <button id="addUpcoming" class="btn ghost" style="cursor:pointer; margin-top:10px">+ Add Upcoming</button>
+            </div>
+          </div>
+
+          <div class="grid two" style="margin-top:14px">
+            <div class="card glass-card">
+              <h3>Social Links</h3>
+              <label class="label">WhatsApp Channel</label>
+              <input id="waLink" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+              <label class="label" style="margin-top:12px; display:block">Facebook Page</label>
+              <input id="fbPage" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:14px; border:1px solid rgba(255,255,255,.12); background: rgba(0,0,0,.35); color: var(--text)">
+            </div>
+
+            <div class="card glass-card">
+              <h3>Facebook Album Preview Cards</h3>
+              <div id="albumEditor"></div>
+              <button id="addAlbum" class="btn ghost" style="cursor:pointer; margin-top:10px">+ Add Album</button>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:14px">
+            <button id="saveBtn" class="btn primary" style="cursor:pointer">Save</button>
+            <a class="btn ghost" href="index.html">View Site</a>
+          </div>
+          <p class="muted" style="margin-top:10px">Saved to <b>localStorage</b>. Real admin will save to a database so updates appear to everyone.</p>
         </div>
       </div>
     </section>
@@ -202,69 +130,76 @@ Album Title | https://facebook.com/... "></textarea>
       return res.json();
     }
 
-    function parseAlbumLines(raw){
-      return String(raw || "")
-        .split("\n")
-        .map(line => line.trim())
-        .filter(Boolean)
-        .map(line => {
-          const parts = line.split("|");
-          return {
-            title: (parts[0] || "").trim(),
-            url: (parts[1] || "").trim()
-          };
-        })
-        .filter(item => item.title && item.url);
-    }
-
-    function albumLinesFromData(albums){
-      return (albums || []).map(a => `${a.title} | ${a.url}`).join("\n");
+    function styleInput(inp){
+      inp.style.padding = "10px 12px";
+      inp.style.borderRadius = "12px";
+      inp.style.border = "1px solid rgba(255,255,255,.12)";
+      inp.style.background = "rgba(0,0,0,.35)";
+      inp.style.color = "var(--text)";
+      inp.style.width = "100%";
     }
 
     function createEventRow(e, onRemove){
       const row = document.createElement("div");
-      row.className = "event-row";
+      row.style.display = "grid";
+      row.style.gridTemplateColumns = "1.2fr .7fr .9fr .55fr auto";
+      row.style.gap = "8px";
+      row.style.marginBottom = "10px";
 
-      const title = document.createElement("input");
-      title.value = e.title || "";
-      title.placeholder = "Title";
-
-      const date = document.createElement("input");
-      date.value = e.date || "";
-      date.placeholder = "YYYY-MM-DD";
-
-      const loc = document.createElement("input");
-      loc.value = e.location || "";
-      loc.placeholder = "Location";
-
-      const tag = document.createElement("input");
-      tag.value = e.tag || "";
-      tag.placeholder = "Tag";
+      const title = document.createElement("input"); title.value = e.title || ""; title.placeholder = "Title";
+      const date = document.createElement("input"); date.value = e.date || ""; date.placeholder = "YYYY-MM-DD";
+      const loc = document.createElement("input"); loc.value = e.location || ""; loc.placeholder = "Location";
+      const tag = document.createElement("input"); tag.value = e.tag || ""; tag.placeholder = "Tag";
+      [title, date, loc, tag].forEach(styleInput);
 
       const del = document.createElement("button");
       del.textContent = "Remove";
       del.className = "btn ghost";
-      del.type = "button";
+      del.style.padding = "10px 12px";
+      del.style.cursor = "pointer";
       del.onclick = () => onRemove(row);
 
       row.append(title, date, loc, tag, del);
+      row.getValue = () => ({ title: title.value, date: date.value, location: loc.value, tag: tag.value });
+      return row;
+    }
+
+    function createAlbumRow(a, onRemove){
+      const row = document.createElement("div");
+      row.className = "glass-card";
+      row.style.padding = "12px";
+      row.style.borderRadius = "18px";
+      row.style.marginBottom = "10px";
+      row.style.display = "grid";
+      row.style.gap = "8px";
+
+      const title = document.createElement("input"); title.value = a.title || ""; title.placeholder = "Album title";
+      const desc = document.createElement("textarea"); desc.value = a.description || ""; desc.placeholder = "Short description"; desc.rows = 2;
+      const link = document.createElement("input"); link.value = a.link || ""; link.placeholder = "Facebook album or post link";
+      const cover = document.createElement("input"); cover.value = a.cover || ""; cover.placeholder = "Cover image URL (optional)";
+      [title, desc, link, cover].forEach(styleInput);
+
+      const del = document.createElement("button");
+      del.textContent = "Remove Album";
+      del.className = "btn ghost";
+      del.style.cursor = "pointer";
+      del.onclick = () => onRemove(row);
+
+      row.append(title, desc, link, cover, del);
       row.getValue = () => ({
         title: title.value,
-        date: date.value,
-        location: loc.value,
-        tag: tag.value
+        description: desc.value,
+        link: link.value,
+        cover: cover.value
       });
       return row;
     }
 
-    function mountEvents(container, list){
+    function mountRows(container, list, factory){
       container.innerHTML = "";
       const rows = [];
-      list.forEach(e => {
-        const row = createEventRow(e, (r) => {
-          r.remove();
-          rows.splice(rows.indexOf(r), 1);
-        });
+      list.forEach((item) => {
+        const row = factory(item, (r) => { r.remove(); rows.splice(rows.indexOf(r), 1); });
         rows.push(row);
         container.appendChild(row);
       });
@@ -274,6 +209,7 @@ Album Title | https://facebook.com/... "></textarea>
     let current = null;
     let ongoingRows = [];
     let upcomingRows = [];
+    let albumRows = [];
 
     function fillEditor(data){
       current = data;
@@ -282,62 +218,53 @@ Album Title | https://facebook.com/... "></textarea>
       document.getElementById("cAddress").value = data.contact?.address || "";
       document.getElementById("cPhone").value = data.contact?.phone || "";
       document.getElementById("cEmail").value = data.contact?.email || "";
-      document.getElementById("whatsappChannel").value = data.social?.whatsappChannel || "";
-      document.getElementById("facebookPage").value = data.social?.facebookPage || "";
-      document.getElementById("facebookAlbums").value = albumLinesFromData(data.social?.facebookAlbums || []);
+      document.getElementById("waLink").value = data.social?.whatsappChannel || "";
+      document.getElementById("fbPage").value = data.social?.facebookPage || "";
 
-      ongoingRows = mountEvents(document.getElementById("ongoingEditor"), data.ongoing || []);
-      upcomingRows = mountEvents(document.getElementById("upcomingEditor"), data.upcoming || []);
+      ongoingRows = mountRows(document.getElementById("ongoingEditor"), data.ongoing || [], createEventRow);
+      upcomingRows = mountRows(document.getElementById("upcomingEditor"), data.upcoming || [], createEventRow);
+      albumRows = mountRows(document.getElementById("albumEditor"), data.social?.facebookAlbums || [], createAlbumRow);
     }
 
-    function unlock(){
-      document.getElementById("editor").style.display = "block";
-    }
+    function unlock(){ document.getElementById("editor").style.display = "block"; }
 
     document.getElementById("loginBtn").onclick = async () => {
       const pw = document.getElementById("pw").value.trim();
       const msg = document.getElementById("loginMsg");
-
-      if (pw !== DEFAULT_PW) {
-        msg.textContent = "Wrong password. Preview password is gcc2026.";
+      if(pw !== DEFAULT_PW){
+        msg.textContent = "Wrong password. (Preview password: gcc2026)";
         return;
       }
-
-      msg.innerHTML = "Unlocked. You can edit the homepage preview now.";
+      msg.textContent = "Unlocked. You can edit content now.";
       const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          fillEditor(JSON.parse(stored));
-          unlock();
-          return;
-        } catch(e) {}
+      if(stored){
+        try { fillEditor(JSON.parse(stored)); unlock(); return; } catch {}
       }
-
       const def = await loadDefault();
       fillEditor(def);
       unlock();
     };
 
     document.getElementById("addOngoing").onclick = () => {
-      const row = createEventRow({title:"",date:"",location:"",tag:""}, (r) => {
-        r.remove();
-        ongoingRows.splice(ongoingRows.indexOf(r), 1);
-      });
+      const row = createEventRow({}, (r) => { r.remove(); ongoingRows.splice(ongoingRows.indexOf(r), 1); });
       ongoingRows.push(row);
       document.getElementById("ongoingEditor").appendChild(row);
     };
 
     document.getElementById("addUpcoming").onclick = () => {
-      const row = createEventRow({title:"",date:"",location:"",tag:""}, (r) => {
-        r.remove();
-        upcomingRows.splice(upcomingRows.indexOf(r), 1);
-      });
+      const row = createEventRow({}, (r) => { r.remove(); upcomingRows.splice(upcomingRows.indexOf(r), 1); });
       upcomingRows.push(row);
       document.getElementById("upcomingEditor").appendChild(row);
     };
 
+    document.getElementById("addAlbum").onclick = () => {
+      const row = createAlbumRow({}, (r) => { r.remove(); albumRows.splice(albumRows.indexOf(r), 1); });
+      albumRows.push(row);
+      document.getElementById("albumEditor").appendChild(row);
+    };
+
     document.getElementById("saveBtn").onclick = () => {
-      if (!current) return;
+      if(!current) return;
 
       current.hero = current.hero || {};
       current.hero.title = document.getElementById("heroTitle").value;
@@ -349,20 +276,20 @@ Album Title | https://facebook.com/... "></textarea>
       current.contact.email = document.getElementById("cEmail").value;
 
       current.social = current.social || {};
-      current.social.whatsappChannel = document.getElementById("whatsappChannel").value.trim();
-      current.social.facebookPage = document.getElementById("facebookPage").value.trim();
-      current.social.facebookAlbums = parseAlbumLines(document.getElementById("facebookAlbums").value);
+      current.social.whatsappChannel = document.getElementById("waLink").value;
+      current.social.facebookPage = document.getElementById("fbPage").value;
+      current.social.facebookAlbums = albumRows.map((r) => r.getValue()).filter((a) => a.title.trim().length || a.link.trim().length);
 
-      current.ongoing = ongoingRows.map(r => r.getValue()).filter(e => e.title.trim().length);
-      current.upcoming = upcomingRows.map(r => r.getValue()).filter(e => e.title.trim().length);
+      current.ongoing = ongoingRows.map((r) => r.getValue()).filter((e) => e.title.trim().length);
+      current.upcoming = upcomingRows.map((r) => r.getValue()).filter((e) => e.title.trim().length);
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
-      alert("Saved. Open the homepage preview to see your updates.");
+      alert("Saved! Open Home page to see updates.");
     };
 
     document.getElementById("resetBtn").onclick = () => {
       localStorage.removeItem(STORAGE_KEY);
-      alert("Reset complete. Reload the homepage to use the default content again.");
+      alert("Reset done. Reload home page.");
     };
   </script>
 </body>
