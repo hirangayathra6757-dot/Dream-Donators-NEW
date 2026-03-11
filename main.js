@@ -1,5 +1,6 @@
-// Main JS (ESM) — 3D + scroll interactions + data rendering
-gsap.registerPlugin(ScrollTrigger);
+if (window.gsap && window.ScrollTrigger) {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const DATA_URL = "data.json";
 const STORAGE_KEY = "gcc_site_data_v1";
@@ -8,8 +9,8 @@ function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
 
 async function loadData(){
   const fromStorage = localStorage.getItem(STORAGE_KEY);
-  if(fromStorage){
-    try { return JSON.parse(fromStorage); } catch(e){ /* ignore */ }
+  if (fromStorage) {
+    try { return JSON.parse(fromStorage); } catch(e) {}
   }
   const res = await fetch(DATA_URL, { cache: "no-store" });
   return res.json();
@@ -26,8 +27,9 @@ function formatDate(iso){
 
 function renderStats(stats){
   const row = document.getElementById("statsRow");
+  if (!row) return;
   row.innerHTML = "";
-  for(const s of stats){
+  for (const s of stats) {
     const el = document.createElement("div");
     el.className = "stat";
     el.innerHTML = `<div class="v">${s.value}</div><div class="l">${s.label}</div>`;
@@ -37,10 +39,12 @@ function renderStats(stats){
 
 function renderTimeline(items){
   const wrap = document.getElementById("timelineCards");
+  if (!wrap) return;
   wrap.innerHTML = "";
-  items.forEach((t, i) => {
+
+  items.forEach((t) => {
     const card = document.createElement("div");
-    card.className = "card timeline-card";
+    card.className = "card timeline-card glass";
     card.innerHTML = `
       <div class="year">${t.year}</div>
       <div>
@@ -50,35 +54,37 @@ function renderTimeline(items){
     `;
     wrap.appendChild(card);
 
-    // subtle entrance
-    gsap.from(card, {
-      opacity: 0,
-      y: 18,
-      duration: .55,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: card,
-        start: "top 85%",
-      }
-    });
-  });
-
-  // progress bar for timeline
-  ScrollTrigger.create({
-    trigger: ".section-journey",
-    start: "top 70%",
-    end: "bottom 65%",
-    onUpdate: (self) => {
-      const p = clamp(self.progress, 0, 1);
-      document.getElementById("timelineProgress").style.height = (p * 100).toFixed(1) + "%";
-      // drive 3D with same progress
-      setCrestProgress(p);
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.from(card, {
+        opacity: 0,
+        y: 18,
+        duration: .55,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 85%",
+        }
+      });
     }
   });
+
+  if (window.ScrollTrigger) {
+    ScrollTrigger.create({
+      trigger: ".section-journey",
+      start: "top 70%",
+      end: "bottom 65%",
+      onUpdate: (self) => {
+        const p = clamp(self.progress, 0, 1);
+        const line = document.getElementById("timelineProgress");
+        if (line) line.style.height = (p * 100).toFixed(1) + "%";
+      }
+    });
+  }
 }
 
 function renderEvents(list, elId){
   const el = document.getElementById(elId);
+  if (!el) return;
   el.innerHTML = "";
   list.forEach(e => {
     const div = document.createElement("div");
@@ -95,199 +101,185 @@ function renderEvents(list, elId){
 }
 
 function renderContact(c){
-  document.getElementById("contactAddress").textContent = c.address || "—";
-  document.getElementById("contactPhone").textContent = c.phone || "—";
-  document.getElementById("contactEmail").textContent = c.email || "—";
+  const addressEl = document.getElementById("contactAddress");
+  const phoneEl = document.getElementById("contactPhone");
+  const emailEl = document.getElementById("contactEmail");
+
+  if (addressEl) addressEl.textContent = c.address || "Contact details will be updated soon";
+
+  if (phoneEl) {
+    phoneEl.textContent = c.phone || "Phone number will be updated soon";
+    phoneEl.href = c.phone ? `tel:${String(c.phone).replace(/\s+/g, "")}` : "#";
+  }
+
+  if (emailEl) {
+    emailEl.textContent = c.email || "Official email will be updated soon";
+    emailEl.href = c.email ? `mailto:${c.email}` : "#";
+  }
 }
 
 function renderHero(hero){
-  document.getElementById("heroTitle").textContent = hero.title || "Gamini Central College";
-  document.getElementById("heroSubtitle").textContent = hero.subtitle || "";
-  document.getElementById("heroCtaPrimary").textContent = hero.ctaPrimary || "Explore Journey";
-  document.getElementById("heroCtaSecondary").textContent = hero.ctaSecondary || "Latest Updates";
+  const t = document.getElementById("heroTitle");
+  const s = document.getElementById("heroSubtitle");
+  const p = document.getElementById("heroCtaPrimary");
+  const q = document.getElementById("heroCtaSecondary");
+  if (t) t.textContent = hero.title || "Gamini Central College";
+  if (s) s.textContent = hero.subtitle || "";
+  if (p) p.textContent = hero.ctaPrimary || "Explore Journey";
+  if (q) q.textContent = hero.ctaSecondary || "Latest Updates";
 }
 
-document.getElementById("year").textContent = String(new Date().getFullYear());
+function renderSocial(social = {}){
+  const strip = document.getElementById("socialStrip");
+  const whatsappFloat = document.getElementById("whatsappFloat");
+  if (!strip) return;
 
-// -------------- 3D SCENE --------------
-let scene, camera, renderer, group, crestDisk, ring, glow;
-let targetRotation = 0;
-let crestProgress = 0;
+  const hasWhatsApp = Boolean(social.whatsappChannel);
+  const hasFacebook = Boolean(social.facebookPage);
+  const albums = Array.isArray(social.facebookAlbums) ? social.facebookAlbums.filter(a => a && a.title && a.url) : [];
 
-function setCrestProgress(p){
-  crestProgress = p;
+  if (!hasWhatsApp && !hasFacebook && albums.length === 0) {
+    strip.innerHTML = "";
+    if (whatsappFloat) whatsappFloat.classList.add("is-hidden");
+    return;
+  }
+
+  let html = '<div class="social-grid">';
+
+  if (hasWhatsApp) {
+    html += `
+      <article class="social-card glass">
+        <div class="label">WhatsApp Channel</div>
+        <h3>School updates on WhatsApp</h3>
+        <p>Use this channel for quick notices, schedule updates, and community announcements.</p>
+        <div class="social-links">
+          <a class="social-link" href="${social.whatsappChannel}" target="_blank" rel="noopener">Open Channel</a>
+        </div>
+      </article>`;
+  }
+
+  if (hasFacebook) {
+    html += `
+      <article class="social-card glass">
+        <div class="label">Facebook Page</div>
+        <h3>Photos, posts, and event coverage</h3>
+        <p>Connect your page now and later we can switch this to a live gallery after moving to Firebase or a server.</p>
+        <div class="social-links">
+          <a class="social-link" href="${social.facebookPage}" target="_blank" rel="noopener">Open Facebook</a>
+        </div>
+      </article>`;
+  }
+
+  if (albums.length) {
+    html += `
+      <article class="social-card glass">
+        <div class="label">Facebook Albums</div>
+        <h3>Recent photo albums</h3>
+        <div class="album-list">
+          ${albums.map(a => `
+            <div class="album-item">
+              <span>${a.title}</span>
+              <a href="${a.url}" target="_blank" rel="noopener">Open Album</a>
+            </div>
+          `).join("")}
+        </div>
+      </article>`;
+  }
+
+  html += "</div>";
+  strip.innerHTML = html;
+
+  if (whatsappFloat) {
+    if (hasWhatsApp) {
+      whatsappFloat.href = social.whatsappChannel;
+      whatsappFloat.classList.remove("is-hidden");
+    } else {
+      whatsappFloat.classList.add("is-hidden");
+    }
+  }
 }
 
-function init3D(){
-  const canvas = document.getElementById("scene");
+function hideLoader(){
+  const loader = document.getElementById("loader");
+  if (!loader) return;
+  loader.classList.add("is-hidden");
+  setTimeout(() => loader.remove(), 400);
+}
 
-  scene = new THREE.Scene();
+function initMotion(){
+  if (!(window.gsap && window.ScrollTrigger)) return;
 
-  camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
-  camera.position.set(0, 0.8, 4.2);
-
-  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-
-  // lights
-  const ambient = new THREE.AmbientLight(0xffffff, 0.55);
-  scene.add(ambient);
-
-  const key = new THREE.DirectionalLight(0xffffff, 1.1);
-  key.position.set(3, 4, 4);
-  scene.add(key);
-
-  const rim = new THREE.PointLight(0xffd45a, 2.0, 12);
-  rim.position.set(-2.8, 1.8, 2.5);
-  scene.add(rim);
-
-  group = new THREE.Group();
-  scene.add(group);
-
-  // disk with logo texture
-  const tex = new THREE.TextureLoader().load("assets/logo.png");
-  tex.colorSpace = THREE.SRGBColorSpace;
-
-  const diskGeo = new THREE.CylinderGeometry(1.05, 1.05, 0.18, 80, 1, true);
-  const diskMat = new THREE.MeshStandardMaterial({
-    color: 0x0a6b2e,
-    roughness: 0.3,
-    metalness: 0.35,
-    emissive: new THREE.Color(0x001a0b),
+  gsap.from(".topbar", {
+    opacity: 0,
+    y: -24,
+    duration: 0.7,
+    ease: "power2.out"
   });
-  const disk = new THREE.Mesh(diskGeo, diskMat);
-  group.add(disk);
 
-  // front face
-  const faceGeo = new THREE.CircleGeometry(1.05, 80);
-  const faceMat = new THREE.MeshStandardMaterial({
-    map: tex,
-    transparent: true,
-    roughness: 0.55,
-    metalness: 0.05,
+  gsap.from(".hero-copy", {
+    opacity: 0,
+    y: 30,
+    duration: 0.8,
+    ease: "power2.out"
   });
-  crestDisk = new THREE.Mesh(faceGeo, faceMat);
-  crestDisk.position.z = 0.091;
-  group.add(crestDisk);
 
-  // back face (subtle)
-  const backMat = new THREE.MeshStandardMaterial({
-    color: 0x081208,
-    roughness: 0.7,
-    metalness: 0.15
+  gsap.from(".logo-stage", {
+    opacity: 0,
+    y: 30,
+    scale: 0.96,
+    duration: 0.85,
+    delay: 0.08,
+    ease: "power2.out"
   });
-  const back = new THREE.Mesh(faceGeo, backMat);
-  back.position.z = -0.091;
-  back.rotation.y = Math.PI;
-  group.add(back);
 
-  // ring
-  const ringGeo = new THREE.TorusGeometry(1.15, 0.07, 18, 120);
-  const ringMat = new THREE.MeshStandardMaterial({
-    color: 0xffd45a,
-    roughness: 0.22,
-    metalness: 0.85,
-    emissive: new THREE.Color(0x2a1f00),
-    emissiveIntensity: 0.25,
-  });
-  ring = new THREE.Mesh(ringGeo, ringMat);
-  ring.rotation.x = Math.PI * 0.5;
-  group.add(ring);
-
-  // glow plane (fake bloom)
-  const glowGeo = new THREE.PlaneGeometry(5.5, 5.5);
-  const glowMat = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity: 0.18,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending,
-    map: makeRadialGradientTexture()
-  });
-  glow = new THREE.Mesh(glowGeo, glowMat);
-  glow.position.z = -1.1;
-  group.add(glow);
-
-  group.rotation.y = -0.6;
-  group.rotation.x = 0.18;
-
-  // mouse tilt
-  const bounds = () => canvas.getBoundingClientRect();
-  window.addEventListener("mousemove", (e) => {
-    const r = bounds();
-    const nx = (e.clientX - r.left) / r.width * 2 - 1;
-    const ny = (e.clientY - r.top) / r.height * 2 - 1;
-    targetRotation = nx * 0.5;
-    group.rotation.x = 0.16 + ny * -0.12;
-  }, { passive: true });
-
-  // hero parallax
   gsap.to(".hero-bg", {
-    scale: 1.12,
+    scale: 1.1,
     ease: "none",
     scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
   });
 
-  animate();
+  gsap.to(".hero-logo", {
+    y: -10,
+    repeat: -1,
+    yoyo: true,
+    duration: 2.6,
+    ease: "sine.inOut"
+  });
+
+  gsap.utils.toArray(".card, .panel, .contact-card, .map-card, .social-card").forEach((el) => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 18,
+      duration: 0.55,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 86%",
+      }
+    });
+  });
 }
 
-function makeRadialGradientTexture(){
-  const s = 256;
-  const c = document.createElement("canvas");
-  c.width = s; c.height = s;
-  const ctx = c.getContext("2d");
-  const g = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
-  g.addColorStop(0, "rgba(11,209,106,0.85)");
-  g.addColorStop(0.45, "rgba(255,212,90,0.35)");
-  g.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = g;
-  ctx.fillRect(0,0,s,s);
-  const tex = new THREE.CanvasTexture(c);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
-}
+document.getElementById("year").textContent = String(new Date().getFullYear());
 
-function resize(){
-  const canvas = document.getElementById("scene");
-  if(!renderer || !camera) return;
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  renderer.setSize(w, h, false);
-  camera.aspect = w / h;
-  camera.updateProjectionMatrix();
-}
-window.addEventListener("resize", resize);
+window.addEventListener("load", () => {
+  setTimeout(hideLoader, 180);
+});
 
-function animate(){
-  requestAnimationFrame(animate);
-
-  // smooth rotation + scroll-driven turn
-  group.rotation.y += (targetRotation - group.rotation.y) * 0.03;
-
-  // crest progress drives spin + slight lift
-  const turn = crestProgress * Math.PI * 2.0;
-  crestDisk.rotation.z = -turn * 0.35;
-  ring.rotation.z = turn * 0.25;
-  group.position.y = Math.sin(crestProgress * Math.PI) * 0.08;
-
-  // idle motion
-  ring.rotation.y += 0.004;
-  glow.rotation.z -= 0.002;
-
-  renderer.render(scene, camera);
-}
-
-// -------------- INIT --------------
 (async function(){
-  const data = await loadData();
-
-  renderHero(data.hero || {});
-  renderStats(data.stats || []);
-  renderTimeline(data.timeline || []);
-  renderEvents(data.ongoing || [], "ongoingList");
-  renderEvents(data.upcoming || [], "upcomingList");
-  renderContact(data.contact || {});
-
-  init3D();
-  resize();
+  try {
+    const data = await loadData();
+    renderHero(data.hero || {});
+    renderStats(data.stats || []);
+    renderTimeline(data.timeline || []);
+    renderEvents(data.ongoing || [], "ongoingList");
+    renderEvents(data.upcoming || [], "upcomingList");
+    renderContact(data.contact || {});
+    renderSocial(data.social || {});
+    initMotion();
+  } catch (error) {
+    console.error(error);
+  } finally {
+    hideLoader();
+  }
 })();
