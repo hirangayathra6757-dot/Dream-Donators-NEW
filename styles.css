@@ -233,3 +233,19 @@ h1{margin:14px 0 10px; font-size:clamp(34px, 3.8vw, 54px); line-height:1.05}
   .hero-cta,.social-quick,.contact-social,.album-actions,.footer-links{flex-direction:column; align-items:flex-start}
   .event{flex-direction:column}
 }
+:root{
+--green-dark:#06261D;
+--green:#0B3D2E;
+--yellow:#F7C948;
+--glass-bg:rgba(255,255,255,0.08);
+--glass-border:rgba(255,255,255,0.15);
+}
+
+.glass-card{
+background:linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+border:1px solid var(--glass-border);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+box-shadow:0 10px 30px rgba(0,0,0,0.25);
+border-radius:28px;
+}
