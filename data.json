@@ -91,13 +91,20 @@
     }
   ],
   "contact": {
-    "address": "Nuwara Eliya, Sri Lanka",
+    "address": "Gamini Central College, Nuwara Eliya, Sri Lanka",
     "phone": "+94 XX XXX XXXX",
-    "email": "info@example.com"
+    "email": "info@gaminicentral.example"
   },
   "social": {
     "whatsappChannel": "https://whatsapp.com/channel/0029VaoJOpNBA1ey84bVF127",
     "facebookPage": "",
-    "facebookAlbums": []
+    "facebookAlbums": [
+      {
+        "title": "Facebook Album Preview",
+        "description": "Add your album link and cover image from the admin page to show a proper preview here.",
+        "link": "",
+        "cover": "assets/campus_walk.jpg"
+      }
+    ]
   }
 }
