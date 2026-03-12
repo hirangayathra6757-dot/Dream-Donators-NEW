@@ -1,4 +1,23 @@
 const STORAGE_KEY = "gcc_site_data_v1";
+async function loadSiteData(){
+
+import { db } from "./firebase.js";
+import { doc, getDoc } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function loadSiteData(){
+
+const docRef = doc(db,"siteContent","main");
+const docSnap = await getDoc(docRef);
+
+if(docSnap.exists()){
+
+const data = docSnap.data();
+
+document.getElementById("heroTitle").innerText = data.heroTitle;
+document.getElementById("heroSubtitle").innerText = data.heroSubtitle;
+
+}
 
 async function loadData(){
   const local = localStorage.getItem(STORAGE_KEY);
@@ -221,25 +240,7 @@ import { db } from "./firebase.js";
 import { doc, getDoc } from 
 "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-async function loadSiteData(){
 
-import { db } from "./firebase.js";
-import { doc, getDoc } from 
-"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-async function loadSiteData(){
-
-const docRef = doc(db,"siteContent","main");
-const docSnap = await getDoc(docRef);
-
-if(docSnap.exists()){
-
-const data = docSnap.data();
-
-document.getElementById("heroTitle").innerText = data.heroTitle;
-document.getElementById("heroSubtitle").innerText = data.heroSubtitle;
-
-}
 
 }
 
