@@ -7,26 +7,24 @@ signInWithEmailAndPassword,
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-import { 
+import {
 doc,
 setDoc,
 getDoc
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
 
-const STORAGE_KEY = "gcc_site_data_v1";
+document.addEventListener("DOMContentLoaded", () => {
 
-let current = null;
-let ongoingRows = [];
-let upcomingRows = [];
-let albumRows = [];
+let current = {};
 
+// unlock editor
 function unlock(){
-document.getElementById("editor").style.display="block";
+document.getElementById("editor").style.display = "block";
 }
 
 
-// LOGIN
+// LOGIN BUTTON
 document.getElementById("loginBtn").onclick = async () => {
 
 const email = prompt("Enter admin email");
@@ -36,7 +34,7 @@ try{
 
 await signInWithEmailAndPassword(auth,email,password);
 
-document.getElementById("loginMsg").textContent="Login successful";
+document.getElementById("loginMsg").textContent = "Login successful";
 
 unlock();
 
@@ -44,7 +42,7 @@ loadFromFirebase();
 
 }catch(e){
 
-document.getElementById("loginMsg").textContent="Login failed";
+document.getElementById("loginMsg").textContent = "Login failed";
 
 }
 
@@ -64,12 +62,10 @@ loadFromFirebase();
 });
 
 
-
-// LOAD SITE DATA FROM FIREBASE
+// LOAD DATA FROM FIREBASE
 async function loadFromFirebase(){
 
 const docRef = doc(db,"siteContent","main");
-
 const snap = await getDoc(docRef);
 
 if(snap.exists()){
@@ -81,59 +77,45 @@ fillEditor(snap.data());
 }
 
 
-
-// LOAD DEFAULT JSON
-async function loadDefault(){
-const res = await fetch("data.json",{cache:"no-store"});
-return res.json();
-}
-
-
 // FILL EDITOR
 function fillEditor(data){
 
-current=data;
+current = data;
 
-document.getElementById("heroTitle").value=data.hero?.title||"";
-document.getElementById("heroSubtitle").value=data.hero?.subtitle||"";
+document.getElementById("heroTitle").value = data.hero?.title || "";
+document.getElementById("heroSubtitle").value = data.hero?.subtitle || "";
 
-document.getElementById("cAddress").value=data.contact?.address||"";
-document.getElementById("cPhone").value=data.contact?.phone||"";
-document.getElementById("cEmail").value=data.contact?.email||"";
+document.getElementById("cAddress").value = data.contact?.address || "";
+document.getElementById("cPhone").value = data.contact?.phone || "";
+document.getElementById("cEmail").value = data.contact?.email || "";
 
-document.getElementById("waLink").value=data.social?.whatsappChannel||"";
-document.getElementById("fbPage").value=data.social?.facebookPage||"";
+document.getElementById("waLink").value = data.social?.whatsappChannel || "";
+document.getElementById("fbPage").value = data.social?.facebookPage || "";
 
 }
 
 
-
 // SAVE BUTTON
-document.getElementById("saveBtn").onclick = async ()=>{
+document.getElementById("saveBtn").onclick = async () => {
 
-if(!current) current={};
-
-current.hero={
-title:document.getElementById("heroTitle").value,
-subtitle:document.getElementById("heroSubtitle").value
+current.hero = {
+title: document.getElementById("heroTitle").value,
+subtitle: document.getElementById("heroSubtitle").value
 };
 
-current.contact={
-address:document.getElementById("cAddress").value,
-phone:document.getElementById("cPhone").value,
-email:document.getElementById("cEmail").value
+current.contact = {
+address: document.getElementById("cAddress").value,
+phone: document.getElementById("cPhone").value,
+email: document.getElementById("cEmail").value
 };
 
-current.social={
-whatsappChannel:document.getElementById("waLink").value,
-facebookPage:document.getElementById("fbPage").value,
-facebookAlbums:[]
+current.social = {
+whatsappChannel: document.getElementById("waLink").value,
+facebookPage: document.getElementById("fbPage").value,
+facebookAlbums: []
 };
 
-current.ongoing=[];
-current.upcoming=[];
-
-await setDoc(doc(db,"siteContent","main"),current);
+await setDoc(doc(db,"siteContent","main"), current);
 
 alert("Website updated successfully");
 
@@ -141,13 +123,13 @@ alert("Website updated successfully");
 
 
 // RESET BUTTON
-document.getElementById("resetBtn").onclick=()=>{
+document.getElementById("resetBtn").onclick = () => {
 
-localStorage.removeItem(STORAGE_KEY);
-
-alert("Reset done");
+alert("Reset done. Reload home page.");
 
 };
 
+
+});
 
 </script>
