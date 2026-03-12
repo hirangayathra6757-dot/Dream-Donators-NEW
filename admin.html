@@ -283,7 +283,17 @@
       current.ongoing = ongoingRows.map((r) => r.getValue()).filter((e) => e.title.trim().length);
       current.upcoming = upcomingRows.map((r) => r.getValue()).filter((e) => e.title.trim().length);
 
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(current));
+     import { db } from "./firebase.js";
+import { doc, setDoc } from 
+"https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+async function saveSite(data){
+
+await setDoc(doc(db,"siteContent","main"),data);
+
+alert("Website updated successfully");
+
+}
       alert("Saved! Open Home page to see updates.");
     };
 
