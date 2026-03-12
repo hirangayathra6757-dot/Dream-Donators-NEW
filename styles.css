@@ -404,23 +404,6 @@ gap:28px;
 align-items:flex-start;
 }
 
-.admin-grid > *{
-height:auto;
-}
-}
-.admin-grid .glass-card{
-padding:28px;
-display:block;
-}
-input,
-textarea{
-width:100%;
-box-sizing:border-box;
-}
-h1,h2,h3{
-margin-top:0;
-}
 
-p{
 line-height:1.6;
 }
