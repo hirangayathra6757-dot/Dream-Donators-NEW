@@ -395,15 +395,3 @@ min-height:230px
 .event{
 flex-direction:column
 }
-/* ADMIN PANEL LAYOUT FIX */
-
-.admin-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:28px;
-align-items:flex-start;
-}
-
-
-line-height:1.6;
-}
