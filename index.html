@@ -1,243 +1,322 @@
 <!doctype html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Gamini Central College • Centenary Preview</title>
-  <meta name="description" content="Centenary homepage preview for Gamini Central College, Nuwara Eliya." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
+<title>Gamini Central College • Centenary Preview</title>
+<meta name="description" content="Centenary homepage preview for Gamini Central College, Nuwara Eliya." />
+
+<link rel="icon" href="assets/logo.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <div id="loader" class="loader">
-    <div class="loader-spinner"></div>
-  </div>
 
-  <div class="noise"></div>
-  <div class="bg-blob blob-1"></div>
-  <div class="bg-blob blob-2"></div>
+<div id="loader" class="loader">
+<div class="loader-spinner"></div>
+</div>
 
-  <header class="topbar glass-bar">
-    <a class="brand" href="#top" aria-label="Home">
-      <img src="assets/logo.png" alt="School crest" />
-      <div class="brand-text">
-        <div class="brand-title">Gamini Central College</div>
-        <div class="brand-sub">Nuwara Eliya • Centenary Experience</div>
-      </div>
-    </a>
-    <nav class="nav">
-      <a href="#journey">100 Years</a>
-      <a href="#victories">Victories</a>
-      <a href="#events">Events</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#details">Details</a>
-      <a class="pill" href="admin.html">Admin</a>
-    </nav>
-  </header>
+<div class="noise"></div>
+<div class="bg-blob blob-1"></div>
+<div class="bg-blob blob-2"></div>
 
-  <main id="top">
-    <section class="hero">
-      <div class="hero-bg" role="img" aria-label="Campus aerial view"></div>
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <div class="badge glass-chip">CENTENARY • 1926 — 2026</div>
-          <h1 id="heroTitle">Loading…</h1>
-          <p id="heroSubtitle" class="lead">Loading…</p>
-          <div class="hero-cta">
-            <a id="heroCtaPrimary" class="btn primary" href="#journey">Explore Journey</a>
-            <a id="heroCtaSecondary" class="btn ghost" href="#events">Latest Updates</a>
-          </div>
-          <div class="mini-stats" id="statsRow"></div>
-        </div>
+<header class="topbar glass-bar">
 
-        <div class="hero-logo-panel glass-card">
-          <div class="logo-stage">
-            <img src="assets/logo.png" alt="Gamini Central College Logo" class="hero-logo" />
-            <div class="logo-glow"></div>
-          </div>
-          <div class="hero-side-notes">
-            <div class="mini-panel glass-card">
-              <div class="mini-panel-title">Centenary Preview</div>
-              <p>Liquid-glass interface, clean logo showcase, and smoother scrolling through the history section.</p>
-            </div>
-            <div class="mini-panel glass-card">
-              <div class="mini-panel-title">Stay Connected</div>
-              <div class="social-quick" id="heroSocialLinks"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+<a class="brand" href="#top">
+<img src="assets/logo.png" alt="School crest">
 
-      <div class="hero-fade"></div>
-    </section>
+<div class="brand-text">
+<div class="brand-title">Gamini Central College</div>
+<div class="brand-sub">Nuwara Eliya • Centenary Experience</div>
+</div>
 
-    <section id="journey" class="section section-journey">
-      <div class="container">
-        <div class="section-head">
-          <h2>100 Years of Progress</h2>
-          <p>Scroll through the milestones to follow the college story from foundation to centenary.</p>
-        </div>
+</a>
 
-        <div class="timeline">
-          <div class="timeline-line">
-            <div class="timeline-progress" id="timelineProgress"></div>
-          </div>
-          <div class="timeline-cards" id="timelineCards"></div>
-        </div>
-      </div>
-    </section>
+<nav class="nav">
+<a href="#journey">100 Years</a>
+<a href="#victories">Victories</a>
+<a href="#events">Events</a>
+<a href="#gallery">Gallery</a>
+<a href="#details">Details</a>
+<a class="pill" href="admin.html">Admin</a>
+</nav>
 
-    <section id="victories" class="section section-victories">
-      <div class="bg-slice"></div>
-      <div class="container">
-        <div class="section-head">
-          <h2>Victories & Achievements</h2>
-          <p>A proud tradition in academics, sports, and culture.</p>
-        </div>
+</header>
 
-        <div class="grid three">
-          <article class="card glow glass-card">
-            <h3>Academic Excellence</h3>
-            <p>Consistent performance in national exams, Olympiads, and competitions.</p>
-            <ul class="bullets">
-              <li>Island-wide placements</li>
-              <li>STEM achievements</li>
-              <li>Scholarships & awards</li>
-            </ul>
-          </article>
+<main id="top">
 
-          <article class="card glow glass-card">
-            <h3>Sports Champions</h3>
-            <p>From the highlands to the nation — discipline, teamwork, and strength.</p>
-            <ul class="bullets">
-              <li>Cricket, athletics, soccer</li>
-              <li>Inter-school titles</li>
-              <li>Annual sports meet legacy</li>
-            </ul>
-          </article>
+<section class="hero">
 
-          <article class="card glow glass-card">
-            <h3>Culture & Leadership</h3>
-            <p>Clubs, cadets, scouts, and arts — building character and confidence.</p>
-            <ul class="bullets">
-              <li>Drama & music awards</li>
-              <li>Debate and public speaking</li>
-              <li>Service and community projects</li>
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
+<div class="hero-bg"></div>
 
-    <section id="events" class="section section-events">
-      <div class="container">
-        <div class="section-head split">
-          <div>
-            <h2>Events</h2>
-            <p>Ongoing and upcoming events can be updated from the Admin page. This preview still uses browser storage.</p>
-          </div>
-          <div class="right-actions">
-            <a class="btn ghost" href="admin.html">Open Admin</a>
-          </div>
-        </div>
+<div class="hero-inner">
 
-        <div class="grid two">
-          <div class="panel glass-card">
-            <h3>Ongoing</h3>
-            <div class="event-list" id="ongoingList"></div>
-          </div>
-          <div class="panel glass-card">
-            <h3>Upcoming</h3>
-            <div class="event-list" id="upcomingList"></div>
-          </div>
-        </div>
-      </div>
-    </section>
+<div class="hero-copy">
 
-    <section id="gallery" class="section section-gallery">
-      <div class="container">
-        <div class="section-head split">
-          <div>
-            <h2>Facebook Album Preview</h2>
-            <p>Preview cards for the Facebook albums you add. Each card opens the album in a new tab.</p>
-          </div>
-          <div class="right-actions" id="galleryActions"></div>
-        </div>
+<div class="badge glass-chip">
+CENTENARY • 1926 — 2026
+</div>
 
-        <div class="album-grid" id="albumGrid"></div>
-      </div>
-    </section>
+<h1 id="heroTitle">Loading…</h1>
 
-    <section id="details" class="section section-details">
-      <div class="details-bg" role="img" aria-label="Campus view"></div>
-      <div class="container">
-        <div class="section-head">
-          <h2>School Details</h2>
-          <p>Quick access to information for students, parents, and alumni.</p>
-        </div>
+<p id="heroSubtitle" class="lead">
+Loading…
+</p>
 
-        <div class="grid three">
-          <article class="card glass-card">
-            <h3>About</h3>
-            <p>A century of education in the heart of the hill country — shaping generations with discipline and values.</p>
-            <a class="link" href="#journey">Read the journey →</a>
-          </article>
-          <article class="card glass-card">
-            <h3>Admissions</h3>
-            <p>Admission details, required documents, and contact points for inquiries.</p>
-            <a class="link" href="#contact">Contact admissions →</a>
-          </article>
-          <article class="card glass-card">
-            <h3>Clubs & Societies</h3>
-            <p>Sports, cadets, scouts, ICT, arts, and more. Student life beyond the classroom.</p>
-            <a class="link" href="#events">See events →</a>
-          </article>
-        </div>
+<div class="hero-cta">
+<a id="heroCtaPrimary" class="btn primary" href="#journey">Explore Journey</a>
+<a id="heroCtaSecondary" class="btn ghost" href="#events">Latest Updates</a>
+</div>
 
-        <div id="contact" class="contact">
-          <div class="contact-card glass-card">
-            <h3>Contact</h3>
-            <div class="contact-grid">
-              <div>
-                <div class="label">Address</div>
-                <div id="contactAddress" class="value">—</div>
-              </div>
-              <div>
-                <div class="label">Phone</div>
-                <div id="contactPhone" class="value">—</div>
-              </div>
-              <div>
-                <div class="label">Email</div>
-                <div id="contactEmail" class="value">—</div>
-              </div>
-            </div>
-            <div class="contact-social" id="contactSocialLinks"></div>
-          </div>
-          <div class="map-card glass-card">
-            <h3>Location</h3>
-            <p class="muted">Replace this with Google Maps embed in the real site.</p>
-            <div class="fake-map">
-              <div class="pin"></div>
-              <div class="map-text">Nuwara Eliya • Sri Lanka</div>
-            </div>
-          </div>
-        </div>
+<div class="mini-stats" id="statsRow"></div>
 
-        <footer class="footer glass-card">
-          <div>© <span id="year"></span> Gamini Central College • Preview build</div>
-          <div class="footer-links">
-            <a href="#top">Back to top</a>
-            <a href="admin.html">Admin</a>
-          </div>
-        </footer>
-      </div>
-    </section>
-  </main>
+</div>
 
-  <script type="module" src="main.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<div class="hero-logo-panel glass-card">
+
+<div class="logo-stage">
+<img src="assets/logo.png" class="hero-logo">
+<div class="logo-glow"></div>
+</div>
+
+<div class="hero-side-notes">
+
+<div class="mini-panel glass-card">
+<div class="mini-panel-title">Centenary Preview</div>
+<p>Liquid-glass interface with smoother scrolling and clean logo showcase.</p>
+</div>
+
+<div class="mini-panel glass-card">
+<div class="mini-panel-title">Stay Connected</div>
+<div class="social-quick" id="heroSocialLinks"></div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-fade"></div>
+
+</section>
+
+<section id="journey" class="section section-journey">
+
+<div class="container">
+
+<div class="section-head">
+<h2>100 Years of Progress</h2>
+<p>Scroll through the milestones to follow the college story from foundation to centenary.</p>
+</div>
+
+<div class="timeline">
+
+<div class="timeline-line">
+<div class="timeline-progress" id="timelineProgress"></div>
+</div>
+
+<div class="timeline-cards" id="timelineCards"></div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="victories" class="section section-victories">
+
+<div class="bg-slice"></div>
+
+<div class="container">
+
+<div class="section-head">
+<h2>Victories & Achievements</h2>
+<p>A proud tradition in academics, sports, and culture.</p>
+</div>
+
+<div class="grid three">
+
+<article class="card glow glass-card">
+<h3>Academic Excellence</h3>
+<p>Consistent performance in national exams and competitions.</p>
+</article>
+
+<article class="card glow glass-card">
+<h3>Sports Champions</h3>
+<p>From the highlands to the nation — teamwork and discipline.</p>
+</article>
+
+<article class="card glow glass-card">
+<h3>Culture & Leadership</h3>
+<p>Clubs, cadets, scouts, arts and leadership programs.</p>
+</article>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="events" class="section section-events">
+
+<div class="container">
+
+<div class="section-head split">
+<div>
+<h2>Events</h2>
+<p>Ongoing and upcoming events.</p>
+</div>
+
+<div class="right-actions">
+<a class="btn ghost" href="admin.html">Open Admin</a>
+</div>
+
+</div>
+
+<div class="grid two">
+
+<div class="panel glass-card">
+<h3>Ongoing</h3>
+<div class="event-list" id="ongoingList"></div>
+</div>
+
+<div class="panel glass-card">
+<h3>Upcoming</h3>
+<div class="event-list" id="upcomingList"></div>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="gallery" class="section section-gallery">
+
+<div class="container">
+
+<div class="section-head split">
+
+<div>
+<h2>Facebook Album Preview</h2>
+<p>Albums you add from admin appear here.</p>
+</div>
+
+<div class="right-actions" id="galleryActions"></div>
+
+</div>
+
+<div class="album-grid" id="albumGrid"></div>
+
+</div>
+
+</section>
+
+<section id="details" class="section section-details">
+
+<div class="details-bg"></div>
+
+<div class="container">
+
+<div class="section-head">
+<h2>School Details</h2>
+<p>Quick access to information.</p>
+</div>
+
+<div class="grid three">
+
+<article class="card glass-card">
+<h3>About</h3>
+<p>A century of education in the hill country.</p>
+</article>
+
+<article class="card glass-card">
+<h3>Admissions</h3>
+<p>Admission details and contact points.</p>
+</article>
+
+<article class="card glass-card">
+<h3>Clubs & Societies</h3>
+<p>Sports, ICT, arts, cadets and more.</p>
+</article>
+
+</div>
+
+<div id="contact" class="contact">
+
+<div class="contact-card glass-card">
+
+<h3>Contact</h3>
+
+<div class="contact-grid">
+
+<div>
+<div class="label">Address</div>
+<div id="contactAddress" class="value">—</div>
+</div>
+
+<div>
+<div class="label">Phone</div>
+<div id="contactPhone" class="value">—</div>
+</div>
+
+<div>
+<div class="label">Email</div>
+<div id="contactEmail" class="value">—</div>
+</div>
+
+</div>
+
+<div class="contact-social" id="contactSocialLinks"></div>
+
+</div>
+
+<div class="map-card glass-card">
+
+<h3>Location</h3>
+
+<div class="fake-map">
+<div class="pin"></div>
+<div class="map-text">Nuwara Eliya • Sri Lanka</div>
+</div>
+
+</div>
+
+</div>
+
+<footer class="footer glass-card">
+
+<div>
+© <span id="year"></span> Gamini Central College
+</div>
+
+<div class="footer-links">
+<a href="#top">Back to top</a>
+<a href="admin.html">Admin</a>
+</div>
+
+</footer>
+
+</div>
+
+</section>
+
+</main>
+
+<script type="module">
+import "./firebase.js";
+import "./firebase-integration.js";
+import "./main.js";
+</script>
+
 </body>
 </html>
