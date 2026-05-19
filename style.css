@@ -18,6 +18,7 @@ linear-gradient(
 );
 
 overflow:hidden;
+overflow-y:auto;
 color:white;
 padding:25px;
 }
@@ -173,6 +174,9 @@ border-radius:35px;
 display:flex;
 
 flex-direction:column;
+
+min-height:100%;
+
 }
 
 /* HERO */
@@ -185,7 +189,10 @@ justify-content:space-between;
 
 align-items:center;
 
-gap:60px;
+gap:40px;
+
+min-height:650px;
+
 }
 
 .left{
@@ -207,7 +214,7 @@ margin-bottom:25px;
 
 h1{
 
-font-size:96px;
+font-size:82px;
 
 line-height:.95;
 
@@ -869,4 +876,6 @@ grid-template-columns:1fr;
 
 }
 
+.projects{
+margin-top:60px;
 }
