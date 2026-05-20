@@ -545,3 +545,68 @@ justify-content:center;
 }
 
 }
+/* PAGE TRANSITIONS */
+
+body{
+
+transition:
+opacity .6s ease;
+
+}
+
+/* PROJECT HOVER */
+
+.project{
+
+transition:
+.4s;
+
+}
+
+.project:hover{
+
+transform:
+translateY(-12px)
+scale(1.02);
+
+}
+
+/* FEATURE CARD */
+
+.feature-card{
+
+transition:
+.5s;
+
+}
+
+.feature-card:hover{
+
+transform:
+translateY(-10px);
+
+box-shadow:
+0 50px 100px
+rgba(
+123,
+97,
+255,
+0.35
+);
+
+}
+
+/* BUTTONS */
+
+button{
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:
+translateY(-3px);
+
+}
