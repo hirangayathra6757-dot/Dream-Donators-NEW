@@ -610,3 +610,22 @@ transform:
 translateY(-3px);
 
 }
+/* EXTRA PORTFOLIO IMAGES */
+
+.p4{
+background-image:url(
+'https://images.unsplash.com/photo-1545239351-1141bd82e8a6'
+);
+}
+
+.p5{
+background-image:url(
+'https://images.unsplash.com/photo-1516321318423-f06f85e504b3'
+);
+}
+
+.p6{
+background-image:url(
+'https://images.unsplash.com/photo-1498050108023-c5249f4df085'
+);
+}
